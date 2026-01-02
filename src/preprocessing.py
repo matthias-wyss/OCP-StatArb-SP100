@@ -47,6 +47,7 @@ logger.addHandler(stream_handler)
 # =============================================================================
 
 RAW_FOLDER = Path("data/raw/SP100/bbo/")  # original tar archives
+SP500_RAW_FILE = Path("data/raw/SPY.P_smid_full_allyears.parquet")  # original SP500 raw data
 EXTRACTED_FOLDER = Path("data/extracted/SP100/bbo/")  # temporary extraction folder
 PREPROCESSED_FOLDER = Path("data/preprocessed/SP100/bbo/")  # final output parquet
 SELECTED_FOLDER = Path("data/selected/SP100/bbo/")  # selected data for analysis
@@ -431,15 +432,23 @@ def select_complete_tickers(
         # Recalculate present dates after optional deletion
         df_dates_cleaned = set(df.select(pl.col("timestamp").dt.date().unique()).to_series().to_list())
 
+        # Remove dates outside the START_DATE - END_DATE range
+        valid_range = set(pd.date_range(START_DATE, END_DATE).date)
+        extra_dates = df_dates_cleaned - valid_range
+        
+        if extra_dates:
+            logger.debug(f"[{f.name}] Removing extra dates outside range: {sorted(extra_dates)}")
+            df = df.filter(pl.col("timestamp").dt.date().is_in(list(valid_range)))
+
         # Compute missing trading days ignoring exceptions
-        missing_dates = trading_days - df_dates_cleaned - exception_dates_set
+        missing_dates = trading_days - set(df.select(pl.col("timestamp").dt.date().unique()).to_series().to_list()) - exception_dates_set
 
         if missing_dates:
             logger.warning(f"[{f.name}] Missing {len(missing_dates)} trading days: {sorted(missing_dates)}")
         else:
             # Save cleaned file if we deleted exception rows, otherwise copy original
             output_path = SELECTED_FOLDER / f.name
-            if delete_exception_days and exception_dates_set & df_dates:
+            if (delete_exception_days and exception_dates_set & df_dates) or extra_dates:
                 df.write_parquet(output_path)
             else:
                 shutil.copy(f, output_path)
@@ -447,6 +456,12 @@ def select_complete_tickers(
             logger.debug(f"[{f.name}] Copied to selected folder")
 
     logger.info(f"Selection completed: {len(copied_files)}/{len(files)} files copied to {SELECTED_FOLDER}")
+
+    # Check whether SPY file is present
+    spy_copied = "SPY.P.parquet" in copied_files
+
+    if not spy_copied:
+        logger.warning(f"SPY.P.parquet has not been copied to {SELECTED_FOLDER}")
 
 
 def count_tickers_with_expected_rows(
@@ -473,11 +488,13 @@ def count_tickers_with_expected_rows(
             logger.error(f"Error reading {f.name}: {e}")
             continue
 
-        if df.height >= expected_num_rows:
+        if df.height == expected_num_rows:
             num_tickers_with_enough_rows += 1
             logger.debug(f"{f.name}: {df.height} rows (meets expected {expected_num_rows})")
-        else:
+        elif df.height < expected_num_rows:
             logger.warning(f"{f.name}: {df.height} rows (below expected {expected_num_rows})")
+        else:
+            logger.warning(f"{f.name}: {df.height} rows (above expected {expected_num_rows})")
 
     logger.info(f"Number of tickers with the expected number of rows: {num_tickers_with_enough_rows} "
                 f"out of {len(selected_files)}")
@@ -608,3 +625,113 @@ def generate_ticker_pairs(tickers: List[str]) -> List[Tuple[str, str]]:
     pairs = list(itertools.combinations(sorted(tickers), 2))
     logger.info(f"Generated {len(pairs)} ticker pairs from {len(tickers)} tickers.")
     return pairs
+
+
+def preprocess_sp500():
+    """
+    Full preprocessing pipeline for SP500 raw BBO data.
+
+    Steps:
+    1. Convert timezone to TIMEZONE
+    2. Add date column
+    3. Process data day by day
+        - Rename columns
+        - Filter dates between START_DATE and END_DATE
+        - Filter RTH (9:30-16:00)
+        - Resample to 1-minute bars
+        - Fill missing minutes with forward fill and backward fill
+        - Compute returns
+
+    Args:
+        df (pl.DataFrame): Raw BBO DataFrame.
+
+    Returns:
+        pl.DataFrame: Preprocessed DataFrame with 'timestamp' and 'mid_price_return'.
+    """
+    logger.info("Cleaning and transforming raw SP500 dataframe...")
+    df_SP500 = pl.read_parquet(SP500_RAW_FILE)
+
+    # Rename columns and convert timezone
+    df_SP500 = df_SP500.rename({
+        "mid": "mid_price",
+        "index": "timestamp"
+    })
+    df_SP500 = df_SP500.with_columns(pl.col("timestamp").dt.convert_time_zone(TIMEZONE))
+    
+    # filter only dates between START_DATE and END_DATE
+    df_SP500 = df_SP500.filter(
+        (pl.col("timestamp").dt.date() >= dt.date(2015, 1, 1)) &
+        (pl.col("timestamp").dt.date() <= dt.date(2017, 3, 31))
+    )
+
+    # Filter only trading days
+    nasdaq = mcal.get_calendar('NASDAQ')
+    schedule = nasdaq.schedule(start_date=pd.Timestamp(START_DATE),
+                               end_date=pd.Timestamp(END_DATE))
+    trading_days = set([d.date() for d in schedule.index])
+
+    # Filter regular trading hours
+    df_SP500 = df_SP500.filter(
+        (pl.col("timestamp").dt.time() >= pl.time(9, 30)) &
+        (pl.col("timestamp").dt.time() <= pl.time(16, 0))
+    )
+
+    # Sort by timestamp
+    df_SP500 = df_SP500.sort("timestamp")
+
+    # Resample to 1-minute bars
+    df_SP500_1m = (
+        df_SP500.group_by_dynamic("timestamp", every="1m")
+                .agg(pl.col("mid_price").last())
+                .sort("timestamp")
+    )
+
+    # Show number of missing trading days and fill empty rows
+    df_dates = set(df_SP500_1m.select(pl.col("timestamp").dt.date().unique()).to_series().to_list())
+    missing_dates = trading_days - df_dates
+    if missing_dates:
+        logger.warning(f"SP500 data is missing {len(missing_dates)} trading days: {sorted(missing_dates)}")
+        # For each days and minute, fill a row with null mid_price
+        all_timestamps = []
+        for day in trading_days:
+            start = pd.Timestamp(day.year, day.month, day.day, 9, 30, tz=TIMEZONE)
+            end = pd.Timestamp(day.year, day.month, day.day, 16, 0, tz=TIMEZONE)
+            # Génère toutes les minutes du jour
+            minute_range = pd.date_range(start=start, end=end, freq="1min")
+            all_timestamps.extend(minute_range)
+        df_all = pl.DataFrame({
+            "timestamp": all_timestamps
+        })
+
+        df_all = df_all.sort("timestamp")
+
+        #  join to original data
+        df_SP500_1m = df_all.join(df_SP500_1m, on="timestamp", how="left")
+
+        print(df_SP500_1m)
+
+    df_SP500_1m = df_SP500_1m.with_columns(
+        (pl.col("timestamp") + pl.duration(minutes=1)).alias("timestamp")
+    )
+
+    # Fill missing minutes
+    df_SP500_1m = df_SP500_1m.with_columns(
+        pl.col("mid_price").forward_fill().backward_fill()
+    )
+
+    # Compute returns
+    df_SP500_1m = df_SP500_1m.with_columns(
+        pl.col("mid_price").pct_change().alias("mid_price_return")
+    )
+    df_SP500_1m = df_SP500_1m.filter(pl.col("mid_price_return").is_not_null())
+
+    if df_SP500_1m.height != EXPECTED_RETURNS_PER_DAY * EXPECTED_TRADING_DAYS:
+        logger.warning(
+            f"{df_SP500_1m.height} returns found, expected {EXPECTED_RETURNS_PER_DAY * EXPECTED_TRADING_DAYS}."
+        )
+
+    if df_SP500_1m.height > 0:
+        return df_SP500_1m.select(["timestamp", "mid_price_return"])
+
+    logger.warning("No daily data produced for this ticker.")
+    return pl.DataFrame(schema=["timestamp", "mid_price_return"])
