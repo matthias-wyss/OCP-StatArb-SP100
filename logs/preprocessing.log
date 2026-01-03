@@ -143290,3 +143290,696 @@ This error occurred with the following context stack:
 2026-01-03 09:10:03,284 | DEBUG | COST.OQ.parquet: 219785 rows (meets expected 219785)
 2026-01-03 09:10:03,292 | DEBUG | SPY.P.parquet: 219785 rows (meets expected 219785)
 2026-01-03 09:10:03,292 | INFO | Number of tickers with the expected number of rows: 91 out of 91
+2026-01-03 09:33:17,932 | INFO | Starting SPY BBO preprocessing...
+2026-01-03 09:33:17,946 | INFO | [SPY.P] Extracting archives...
+2026-01-03 09:33:18,147 | DEBUG | [SPY.P] Found 3 archives.
+2026-01-03 09:33:40,107 | DEBUG | [SPY.P] Extracted SPY.P_2015_bbo.tar
+2026-01-03 09:33:57,888 | DEBUG | [SPY.P] Extracted SPY.P_2016_bbo.tar
+2026-01-03 09:34:01,598 | DEBUG | [SPY.P] Extracted SPY.P_2017_bbo.tar
+2026-01-03 09:34:01,833 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:02,235 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:02,566 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:02,882 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:03,142 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:03,358 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:03,740 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:04,038 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:04,330 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:04,696 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:05,028 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:05,303 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:05,568 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:34:52,533 | INFO | SPY BBO already preprocessed, loading from parquet.
+2026-01-03 09:34:59,376 | INFO | Starting preprocessing of all tickers...
+2026-01-03 09:34:59,377 | INFO | Scanning RAW_FOLDER for tickers...
+2026-01-03 09:34:59,448 | INFO | Found 103 tickers.
+2026-01-03 09:34:59,450 | INFO | 9 tickers need preprocessing.
+2026-01-03 09:34:59,458 | INFO | === Preprocessing ticker TXN.N ===
+2026-01-03 09:34:59,459 | INFO | [TXN.N] Extracting archives...
+2026-01-03 09:34:59,466 | DEBUG | [TXN.N] Found 3 archives.
+2026-01-03 09:34:59,483 | DEBUG | [TXN.N] Extracted TXN.N_2015_bbo.tar
+2026-01-03 09:34:59,489 | DEBUG | [TXN.N] Extracted TXN.N_2016_bbo.tar
+2026-01-03 09:34:59,492 | DEBUG | [TXN.N] Extracted TXN.N_2017_bbo.tar
+2026-01-03 09:34:59,492 | INFO | Loading parquet files in data/extracted/SP100/bbo/TXN.N...
+2026-01-03 09:34:59,495 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,495 | ERROR | No parquet files found for ticker TXN.N
+2026-01-03 09:34:59,496 | ERROR | [TXN.N] Error during preprocessing: No parquet files found for ticker TXN.N
+2026-01-03 09:34:59,497 | INFO | === Preprocessing ticker FOX.N ===
+2026-01-03 09:34:59,499 | INFO | [FOX.N] Extracting archives...
+2026-01-03 09:34:59,505 | DEBUG | [FOX.N] Found 3 archives.
+2026-01-03 09:34:59,510 | DEBUG | [FOX.N] Extracted FOX.N_2015_bbo.tar
+2026-01-03 09:34:59,514 | DEBUG | [FOX.N] Extracted FOX.N_2016_bbo.tar
+2026-01-03 09:34:59,517 | DEBUG | [FOX.N] Extracted FOX.N_2017_bbo.tar
+2026-01-03 09:34:59,517 | INFO | Loading parquet files in data/extracted/SP100/bbo/FOX.N...
+2026-01-03 09:34:59,520 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,521 | ERROR | No parquet files found for ticker FOX.N
+2026-01-03 09:34:59,521 | ERROR | [FOX.N] Error during preprocessing: No parquet files found for ticker FOX.N
+2026-01-03 09:34:59,522 | INFO | === Preprocessing ticker ORCL.OQ ===
+2026-01-03 09:34:59,524 | INFO | [ORCL.OQ] Extracting archives...
+2026-01-03 09:34:59,530 | DEBUG | [ORCL.OQ] Found 3 archives.
+2026-01-03 09:34:59,535 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2015_bbo.tar
+2026-01-03 09:34:59,538 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2016_bbo.tar
+2026-01-03 09:34:59,541 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2017_bbo.tar
+2026-01-03 09:34:59,541 | INFO | Loading parquet files in data/extracted/SP100/bbo/ORCL.OQ...
+2026-01-03 09:34:59,543 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,544 | ERROR | No parquet files found for ticker ORCL.OQ
+2026-01-03 09:34:59,545 | ERROR | [ORCL.OQ] Error during preprocessing: No parquet files found for ticker ORCL.OQ
+2026-01-03 09:34:59,546 | INFO | === Preprocessing ticker XOM.OQ ===
+2026-01-03 09:34:59,548 | INFO | [XOM.OQ] Extracting archives...
+2026-01-03 09:34:59,556 | DEBUG | [XOM.OQ] Found 3 archives.
+2026-01-03 09:34:59,559 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2015_bbo.tar
+2026-01-03 09:34:59,564 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2016_bbo.tar
+2026-01-03 09:34:59,568 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2017_bbo.tar
+2026-01-03 09:34:59,568 | INFO | Loading parquet files in data/extracted/SP100/bbo/XOM.OQ...
+2026-01-03 09:34:59,570 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,571 | ERROR | No parquet files found for ticker XOM.OQ
+2026-01-03 09:34:59,571 | ERROR | [XOM.OQ] Error during preprocessing: No parquet files found for ticker XOM.OQ
+2026-01-03 09:34:59,573 | INFO | === Preprocessing ticker BRK.B.OQ ===
+2026-01-03 09:34:59,574 | INFO | [BRK.B.OQ] Extracting archives...
+2026-01-03 09:34:59,582 | DEBUG | [BRK.B.OQ] Found 3 archives.
+2026-01-03 09:34:59,630 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2015_bbo.tar
+2026-01-03 09:34:59,639 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2016_bbo.tar
+2026-01-03 09:34:59,642 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2017_bbo.tar
+2026-01-03 09:34:59,643 | INFO | Loading parquet files in data/extracted/SP100/bbo/BRK.B.OQ...
+2026-01-03 09:34:59,645 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,646 | ERROR | No parquet files found for ticker BRK.B.OQ
+2026-01-03 09:34:59,647 | ERROR | [BRK.B.OQ] Error during preprocessing: No parquet files found for ticker BRK.B.OQ
+2026-01-03 09:34:59,650 | INFO | === Preprocessing ticker KHC.N ===
+2026-01-03 09:34:59,652 | INFO | [KHC.N] Extracting archives...
+2026-01-03 09:34:59,666 | DEBUG | [KHC.N] Found 3 archives.
+2026-01-03 09:34:59,672 | DEBUG | [KHC.N] Extracted KHC.N_2015_bbo.tar
+2026-01-03 09:34:59,676 | DEBUG | [KHC.N] Extracted KHC.N_2016_bbo.tar
+2026-01-03 09:34:59,679 | DEBUG | [KHC.N] Extracted KHC.N_2017_bbo.tar
+2026-01-03 09:34:59,680 | INFO | Loading parquet files in data/extracted/SP100/bbo/KHC.N...
+2026-01-03 09:34:59,683 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,683 | ERROR | No parquet files found for ticker KHC.N
+2026-01-03 09:34:59,684 | ERROR | [KHC.N] Error during preprocessing: No parquet files found for ticker KHC.N
+2026-01-03 09:34:59,684 | INFO | === Preprocessing ticker ABBV.OQ ===
+2026-01-03 09:34:59,685 | INFO | [ABBV.OQ] Extracting archives...
+2026-01-03 09:34:59,692 | DEBUG | [ABBV.OQ] Found 3 archives.
+2026-01-03 09:34:59,696 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2015_bbo.tar
+2026-01-03 09:34:59,699 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2016_bbo.tar
+2026-01-03 09:34:59,702 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2017_bbo.tar
+2026-01-03 09:34:59,702 | INFO | Loading parquet files in data/extracted/SP100/bbo/ABBV.OQ...
+2026-01-03 09:34:59,704 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,705 | ERROR | No parquet files found for ticker ABBV.OQ
+2026-01-03 09:34:59,705 | ERROR | [ABBV.OQ] Error during preprocessing: No parquet files found for ticker ABBV.OQ
+2026-01-03 09:34:59,706 | INFO | === Preprocessing ticker FB.N ===
+2026-01-03 09:34:59,707 | INFO | [FB.N] Extracting archives...
+2026-01-03 09:34:59,713 | DEBUG | [FB.N] Found 3 archives.
+2026-01-03 09:34:59,716 | DEBUG | [FB.N] Extracted FB.N_2015_bbo.tar
+2026-01-03 09:34:59,719 | DEBUG | [FB.N] Extracted FB.N_2016_bbo.tar
+2026-01-03 09:34:59,722 | DEBUG | [FB.N] Extracted FB.N_2017_bbo.tar
+2026-01-03 09:34:59,723 | INFO | Loading parquet files in data/extracted/SP100/bbo/FB.N...
+2026-01-03 09:34:59,725 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,725 | ERROR | No parquet files found for ticker FB.N
+2026-01-03 09:34:59,726 | ERROR | [FB.N] Error during preprocessing: No parquet files found for ticker FB.N
+2026-01-03 09:34:59,727 | INFO | === Preprocessing ticker WBA.N ===
+2026-01-03 09:34:59,729 | INFO | [WBA.N] Extracting archives...
+2026-01-03 09:34:59,736 | DEBUG | [WBA.N] Found 3 archives.
+2026-01-03 09:34:59,754 | DEBUG | [WBA.N] Extracted WBA.N_2015_bbo.tar
+2026-01-03 09:34:59,757 | DEBUG | [WBA.N] Extracted WBA.N_2016_bbo.tar
+2026-01-03 09:34:59,761 | DEBUG | [WBA.N] Extracted WBA.N_2017_bbo.tar
+2026-01-03 09:34:59,762 | INFO | Loading parquet files in data/extracted/SP100/bbo/WBA.N...
+2026-01-03 09:34:59,764 | INFO | Loaded 0 parquet files.
+2026-01-03 09:34:59,765 | ERROR | No parquet files found for ticker WBA.N
+2026-01-03 09:34:59,766 | ERROR | [WBA.N] Error during preprocessing: No parquet files found for ticker WBA.N
+2026-01-03 09:34:59,767 | INFO | 94 tickers processed successfully over 103 total.
+2026-01-03 09:35:00,856 | INFO | Starting selection of complete tickers...
+2026-01-03 09:35:01,148 | DEBUG | Total trading days: 566, exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:01,158 | DEBUG | Trading days after removing exceptions: 565
+2026-01-03 09:35:01,527 | DEBUG | [MMM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:01,632 | DEBUG | [MMM.N.parquet] Copied to selected folder
+2026-01-03 09:35:01,811 | DEBUG | [C.N.parquet] Copied to selected folder
+2026-01-03 09:35:01,873 | DEBUG | [IBM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:01,941 | DEBUG | [IBM.N.parquet] Copied to selected folder
+2026-01-03 09:35:02,008 | DEBUG | [INTC.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:02,092 | DEBUG | [INTC.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:02,171 | DEBUG | [GOOGL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:02,260 | DEBUG | [GOOGL.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:02,331 | DEBUG | [V.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:02,443 | DEBUG | [V.N.parquet] Copied to selected folder
+2026-01-03 09:35:02,569 | DEBUG | [WFC.N.parquet] Copied to selected folder
+2026-01-03 09:35:02,610 | DEBUG | [SBUX.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:02,683 | DEBUG | [SBUX.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:02,787 | DEBUG | [UNP.N.parquet] Copied to selected folder
+2026-01-03 09:35:02,855 | DEBUG | [HON.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:02,920 | DEBUG | [HON.N.parquet] Copied to selected folder
+2026-01-03 09:35:02,990 | DEBUG | [MRK.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:03,056 | DEBUG | [MRK.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,108 | DEBUG | [AAPL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:03,215 | DEBUG | [AAPL.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:03,323 | DEBUG | [PEP.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,429 | DEBUG | [USB.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,534 | DEBUG | [BK.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,568 | DEBUG | [PYPL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:03,600 | WARNING | [PYPL.OQ.parquet] Missing 136 trading days: [datetime.date(2015, 1, 2), datetime.date(2015, 1, 5), datetime.date(2015, 1, 6), datetime.date(2015, 1, 7), datetime.date(2015, 1, 8), datetime.date(2015, 1, 9), datetime.date(2015, 1, 12), datetime.date(2015, 1, 13), datetime.date(2015, 1, 14), datetime.date(2015, 1, 15), datetime.date(2015, 1, 16), datetime.date(2015, 1, 20), datetime.date(2015, 1, 21), datetime.date(2015, 1, 22), datetime.date(2015, 1, 23), datetime.date(2015, 1, 26), datetime.date(2015, 1, 27), datetime.date(2015, 1, 28), datetime.date(2015, 1, 29), datetime.date(2015, 1, 30), datetime.date(2015, 2, 2), datetime.date(2015, 2, 3), datetime.date(2015, 2, 4), datetime.date(2015, 2, 5), datetime.date(2015, 2, 6), datetime.date(2015, 2, 9), datetime.date(2015, 2, 10), datetime.date(2015, 2, 11), datetime.date(2015, 2, 12), datetime.date(2015, 2, 13), datetime.date(2015, 2, 17), datetime.date(2015, 2, 18), datetime.date(2015, 2, 19), datetime.date(2015, 2, 20), datetime.date(2015, 2, 23), datetime.date(2015, 2, 24), datetime.date(2015, 2, 25), datetime.date(2015, 2, 26), datetime.date(2015, 2, 27), datetime.date(2015, 3, 2), datetime.date(2015, 3, 3), datetime.date(2015, 3, 4), datetime.date(2015, 3, 5), datetime.date(2015, 3, 6), datetime.date(2015, 3, 9), datetime.date(2015, 3, 10), datetime.date(2015, 3, 11), datetime.date(2015, 3, 12), datetime.date(2015, 3, 13), datetime.date(2015, 3, 16), datetime.date(2015, 3, 17), datetime.date(2015, 3, 18), datetime.date(2015, 3, 19), datetime.date(2015, 3, 20), datetime.date(2015, 3, 23), datetime.date(2015, 3, 24), datetime.date(2015, 3, 25), datetime.date(2015, 3, 26), datetime.date(2015, 3, 27), datetime.date(2015, 3, 30), datetime.date(2015, 3, 31), datetime.date(2015, 4, 1), datetime.date(2015, 4, 2), datetime.date(2015, 4, 6), datetime.date(2015, 4, 7), datetime.date(2015, 4, 8), datetime.date(2015, 4, 9), datetime.date(2015, 4, 10), datetime.date(2015, 4, 13), datetime.date(2015, 4, 14), datetime.date(2015, 4, 15), datetime.date(2015, 4, 16), datetime.date(2015, 4, 17), datetime.date(2015, 4, 20), datetime.date(2015, 4, 21), datetime.date(2015, 4, 22), datetime.date(2015, 4, 23), datetime.date(2015, 4, 24), datetime.date(2015, 4, 27), datetime.date(2015, 4, 28), datetime.date(2015, 4, 29), datetime.date(2015, 4, 30), datetime.date(2015, 5, 1), datetime.date(2015, 5, 4), datetime.date(2015, 5, 5), datetime.date(2015, 5, 6), datetime.date(2015, 5, 7), datetime.date(2015, 5, 8), datetime.date(2015, 5, 11), datetime.date(2015, 5, 12), datetime.date(2015, 5, 13), datetime.date(2015, 5, 14), datetime.date(2015, 5, 15), datetime.date(2015, 5, 18), datetime.date(2015, 5, 19), datetime.date(2015, 5, 20), datetime.date(2015, 5, 21), datetime.date(2015, 5, 22), datetime.date(2015, 5, 26), datetime.date(2015, 5, 27), datetime.date(2015, 5, 28), datetime.date(2015, 5, 29), datetime.date(2015, 6, 1), datetime.date(2015, 6, 2), datetime.date(2015, 6, 3), datetime.date(2015, 6, 4), datetime.date(2015, 6, 5), datetime.date(2015, 6, 8), datetime.date(2015, 6, 9), datetime.date(2015, 6, 10), datetime.date(2015, 6, 11), datetime.date(2015, 6, 12), datetime.date(2015, 6, 15), datetime.date(2015, 6, 16), datetime.date(2015, 6, 17), datetime.date(2015, 6, 18), datetime.date(2015, 6, 19), datetime.date(2015, 6, 22), datetime.date(2015, 6, 23), datetime.date(2015, 6, 24), datetime.date(2015, 6, 25), datetime.date(2015, 6, 26), datetime.date(2015, 6, 29), datetime.date(2015, 6, 30), datetime.date(2015, 7, 1), datetime.date(2015, 7, 2), datetime.date(2015, 7, 6), datetime.date(2015, 7, 7), datetime.date(2015, 7, 8), datetime.date(2015, 7, 9), datetime.date(2015, 7, 10), datetime.date(2015, 7, 13), datetime.date(2015, 7, 14), datetime.date(2015, 7, 15), datetime.date(2015, 7, 16), datetime.date(2015, 7, 17)]
+2026-01-03 09:35:03,713 | DEBUG | [BLK.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,776 | DEBUG | [DIS.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:03,856 | DEBUG | [DIS.N.parquet] Copied to selected folder
+2026-01-03 09:35:03,921 | DEBUG | [KO.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:03,979 | DEBUG | [KO.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,095 | DEBUG | [BAC.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,149 | DEBUG | [MSFT.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:04,226 | DEBUG | [MSFT.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:04,353 | DEBUG | [GD.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,404 | DEBUG | [FOXA.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:04,482 | DEBUG | [FOXA.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:04,598 | DEBUG | [COP.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,676 | DEBUG | [AXP.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:04,739 | DEBUG | [AXP.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,841 | DEBUG | [MDT.N.parquet] Copied to selected folder
+2026-01-03 09:35:04,945 | DEBUG | [PFE.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,003 | DEBUG | [JPM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:05,069 | DEBUG | [JPM.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,177 | DEBUG | [AIG.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,292 | DEBUG | [MA.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,408 | DEBUG | [MS.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,513 | DEBUG | [CL.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,620 | DEBUG | [GE.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,682 | DEBUG | [MCD.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:05,745 | DEBUG | [MCD.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,851 | DEBUG | [NEE.N.parquet] Copied to selected folder
+2026-01-03 09:35:05,938 | DEBUG | [T.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,003 | DEBUG | [CVX.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:06,094 | DEBUG | [CVX.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,167 | DEBUG | [DOW.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:06,242 | DEBUG | [DOW.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,294 | DEBUG | [GILD.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:06,385 | DEBUG | [GILD.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:06,467 | WARNING | [AMZN.OQ.parquet] Missing 40 trading days: [datetime.date(2015, 11, 3), datetime.date(2015, 11, 4), datetime.date(2015, 11, 5), datetime.date(2015, 11, 6), datetime.date(2015, 11, 9), datetime.date(2015, 11, 10), datetime.date(2015, 11, 11), datetime.date(2015, 11, 12), datetime.date(2015, 11, 13), datetime.date(2015, 11, 16), datetime.date(2015, 11, 17), datetime.date(2015, 11, 18), datetime.date(2015, 11, 19), datetime.date(2015, 11, 20), datetime.date(2015, 11, 23), datetime.date(2015, 11, 24), datetime.date(2015, 11, 25), datetime.date(2015, 11, 30), datetime.date(2015, 12, 1), datetime.date(2015, 12, 2), datetime.date(2015, 12, 3), datetime.date(2015, 12, 4), datetime.date(2015, 12, 7), datetime.date(2015, 12, 8), datetime.date(2015, 12, 9), datetime.date(2015, 12, 10), datetime.date(2015, 12, 11), datetime.date(2015, 12, 14), datetime.date(2015, 12, 15), datetime.date(2015, 12, 16), datetime.date(2015, 12, 17), datetime.date(2015, 12, 18), datetime.date(2015, 12, 21), datetime.date(2015, 12, 22), datetime.date(2015, 12, 23), datetime.date(2015, 12, 24), datetime.date(2015, 12, 28), datetime.date(2015, 12, 29), datetime.date(2015, 12, 30), datetime.date(2015, 12, 31)]
+2026-01-03 09:35:06,576 | DEBUG | [PM.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,699 | DEBUG | [LMT.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,802 | DEBUG | [OXY.N.parquet] Copied to selected folder
+2026-01-03 09:35:06,899 | DEBUG | [LLY.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,014 | DEBUG | [TWX.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,179 | DEBUG | [UTX.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,242 | DEBUG | [BA.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:07,340 | DEBUG | [BA.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,440 | DEBUG | [ABT.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,547 | DEBUG | [LOW.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,595 | DEBUG | [GOOG.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:07,703 | DEBUG | [GOOG.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:07,785 | DEBUG | [UNH.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:07,848 | DEBUG | [UNH.N.parquet] Copied to selected folder
+2026-01-03 09:35:07,966 | DEBUG | [EXC.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,075 | DEBUG | [FDX.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,140 | DEBUG | [JNJ.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:08,203 | DEBUG | [JNJ.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,327 | DEBUG | [COF.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,446 | DEBUG | [MET.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,554 | DEBUG | [DHR.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,672 | DEBUG | [DD.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,749 | DEBUG | [GS.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:08,836 | DEBUG | [GS.N.parquet] Copied to selected folder
+2026-01-03 09:35:08,981 | DEBUG | [MO.N.parquet] Copied to selected folder
+2026-01-03 09:35:09,091 | DEBUG | [BMY.N.parquet] Copied to selected folder
+2026-01-03 09:35:09,153 | DEBUG | [CAT.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:09,233 | DEBUG | [CAT.N.parquet] Copied to selected folder
+2026-01-03 09:35:09,280 | DEBUG | [CSCO.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:09,456 | DEBUG | [CSCO.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:09,573 | DEBUG | [SPG.N.parquet] Copied to selected folder
+2026-01-03 09:35:09,643 | WARNING | [AGN.N.parquet] Missing 62 trading days: [datetime.date(2015, 3, 17), datetime.date(2015, 3, 18), datetime.date(2015, 3, 19), datetime.date(2015, 3, 20), datetime.date(2015, 3, 23), datetime.date(2015, 3, 24), datetime.date(2015, 3, 25), datetime.date(2015, 3, 26), datetime.date(2015, 3, 27), datetime.date(2015, 3, 30), datetime.date(2015, 3, 31), datetime.date(2015, 4, 1), datetime.date(2015, 4, 2), datetime.date(2015, 4, 6), datetime.date(2015, 4, 7), datetime.date(2015, 4, 8), datetime.date(2015, 4, 9), datetime.date(2015, 4, 10), datetime.date(2015, 4, 13), datetime.date(2015, 4, 14), datetime.date(2015, 4, 15), datetime.date(2015, 4, 16), datetime.date(2015, 4, 17), datetime.date(2015, 4, 20), datetime.date(2015, 4, 21), datetime.date(2015, 4, 22), datetime.date(2015, 4, 23), datetime.date(2015, 4, 24), datetime.date(2015, 4, 27), datetime.date(2015, 4, 28), datetime.date(2015, 4, 29), datetime.date(2015, 4, 30), datetime.date(2015, 5, 1), datetime.date(2015, 5, 4), datetime.date(2015, 5, 5), datetime.date(2015, 5, 6), datetime.date(2015, 5, 7), datetime.date(2015, 5, 8), datetime.date(2015, 5, 11), datetime.date(2015, 5, 12), datetime.date(2015, 5, 13), datetime.date(2015, 5, 14), datetime.date(2015, 5, 15), datetime.date(2015, 5, 18), datetime.date(2015, 5, 19), datetime.date(2015, 5, 20), datetime.date(2015, 5, 21), datetime.date(2015, 5, 22), datetime.date(2015, 5, 26), datetime.date(2015, 5, 27), datetime.date(2015, 5, 28), datetime.date(2015, 5, 29), datetime.date(2015, 6, 1), datetime.date(2015, 6, 2), datetime.date(2015, 6, 3), datetime.date(2015, 6, 4), datetime.date(2015, 6, 5), datetime.date(2015, 6, 8), datetime.date(2015, 6, 9), datetime.date(2015, 6, 10), datetime.date(2015, 6, 11), datetime.date(2015, 6, 12)]
+2026-01-03 09:35:09,711 | DEBUG | [NKE.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:09,845 | DEBUG | [NKE.N.parquet] Copied to selected folder
+2026-01-03 09:35:09,968 | DEBUG | [UPS.N.parquet] Copied to selected folder
+2026-01-03 09:35:10,023 | DEBUG | [AMGN.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:10,140 | DEBUG | [AMGN.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:10,199 | DEBUG | [HD.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:10,362 | DEBUG | [HD.N.parquet] Copied to selected folder
+2026-01-03 09:35:10,423 | DEBUG | [QCOM.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:10,563 | DEBUG | [QCOM.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:10,630 | DEBUG | [VZ.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:10,685 | DEBUG | [VZ.N.parquet] Copied to selected folder
+2026-01-03 09:35:10,800 | DEBUG | [ACN.N.parquet] Copied to selected folder
+2026-01-03 09:35:10,862 | DEBUG | [CMCSA.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:10,951 | DEBUG | [CMCSA.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:11,051 | DEBUG | [CVS.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,109 | DEBUG | [BIIB.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:11,221 | DEBUG | [BIIB.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:11,335 | DEBUG | [MON.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,434 | DEBUG | [ALL.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,557 | DEBUG | [DUK.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,681 | DEBUG | [SLB.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,749 | DEBUG | [WMT.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:11,814 | DEBUG | [WMT.N.parquet] Copied to selected folder
+2026-01-03 09:35:11,869 | DEBUG | [CELG.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:12,004 | DEBUG | [CELG.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:12,071 | DEBUG | [PG.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 09:35:12,133 | DEBUG | [PG.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,250 | DEBUG | [TGT.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,380 | DEBUG | [GM.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,496 | DEBUG | [EMR.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,602 | DEBUG | [F.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,710 | DEBUG | [HAL.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,826 | DEBUG | [RTN.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,928 | DEBUG | [KMI.N.parquet] Copied to selected folder
+2026-01-03 09:35:12,981 | DEBUG | [PCLN.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:13,064 | DEBUG | [PCLN.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:13,173 | DEBUG | [SO.N.parquet] Copied to selected folder
+2026-01-03 09:35:13,218 | DEBUG | [MDLZ.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:13,296 | DEBUG | [MDLZ.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:13,353 | DEBUG | [COST.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:13,435 | DEBUG | [COST.OQ.parquet] Copied to selected folder
+2026-01-03 09:35:13,489 | DEBUG | [SPY.P.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 09:35:13,575 | DEBUG | [SPY.P.parquet] Copied to selected folder
+2026-01-03 09:35:13,575 | INFO | Selection completed: 91/94 files copied to data/selected/SP100/bbo
+2026-01-03 09:35:13,641 | INFO | Counting rows for each selected ticker...
+2026-01-03 09:35:13,675 | DEBUG | MMM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,689 | DEBUG | C.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,704 | DEBUG | IBM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,716 | DEBUG | INTC.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,732 | DEBUG | GOOGL.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,746 | DEBUG | V.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,759 | DEBUG | WFC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,773 | DEBUG | SBUX.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,787 | DEBUG | UNP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,800 | DEBUG | HON.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,812 | DEBUG | MRK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,826 | DEBUG | AAPL.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,840 | DEBUG | PEP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,852 | DEBUG | USB.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,864 | DEBUG | BK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,879 | DEBUG | BLK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,893 | DEBUG | DIS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,905 | DEBUG | KO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,916 | DEBUG | BAC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,929 | DEBUG | MSFT.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,944 | DEBUG | GD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,960 | DEBUG | FOXA.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,977 | DEBUG | COP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:13,991 | DEBUG | AXP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,005 | DEBUG | MDT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,017 | DEBUG | PFE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,029 | DEBUG | JPM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,042 | DEBUG | AIG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,055 | DEBUG | MA.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,072 | DEBUG | MS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,087 | DEBUG | CL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,098 | DEBUG | GE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,114 | DEBUG | MCD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,128 | DEBUG | NEE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,140 | DEBUG | T.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,155 | DEBUG | CVX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,171 | DEBUG | DOW.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,191 | DEBUG | GILD.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,208 | DEBUG | PM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,229 | DEBUG | LMT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,248 | DEBUG | OXY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,265 | DEBUG | LLY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,284 | DEBUG | TWX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,303 | DEBUG | UTX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,320 | DEBUG | BA.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,336 | DEBUG | ABT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,353 | DEBUG | LOW.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,375 | DEBUG | GOOG.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,396 | DEBUG | UNH.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,411 | DEBUG | EXC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,432 | DEBUG | FDX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,451 | DEBUG | JNJ.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,473 | DEBUG | COF.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,494 | DEBUG | MET.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,512 | DEBUG | DHR.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,530 | DEBUG | DD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,551 | DEBUG | GS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,570 | DEBUG | MO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,587 | DEBUG | BMY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,598 | DEBUG | CAT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,605 | DEBUG | CSCO.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,612 | DEBUG | SPG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,619 | DEBUG | NKE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,626 | DEBUG | UPS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,632 | DEBUG | AMGN.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,639 | DEBUG | HD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,646 | DEBUG | QCOM.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,652 | DEBUG | VZ.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,659 | DEBUG | ACN.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,665 | DEBUG | CMCSA.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,672 | DEBUG | CVS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,678 | DEBUG | BIIB.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,684 | DEBUG | MON.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,690 | DEBUG | ALL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,697 | DEBUG | DUK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,703 | DEBUG | SLB.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,710 | DEBUG | WMT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,717 | DEBUG | CELG.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,723 | DEBUG | PG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,730 | DEBUG | TGT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,736 | DEBUG | GM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,742 | DEBUG | EMR.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,749 | DEBUG | F.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,755 | DEBUG | HAL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,765 | DEBUG | RTN.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,773 | DEBUG | KMI.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,780 | DEBUG | PCLN.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,786 | DEBUG | SO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,792 | DEBUG | MDLZ.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,799 | DEBUG | COST.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,806 | DEBUG | SPY.P.parquet: 219785 rows (meets expected 219785)
+2026-01-03 09:35:14,806 | INFO | Number of tickers with the expected number of rows: 91 out of 91
+2026-01-03 09:47:14,268 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:48:00,830 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:50:15,465 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:50:15,508 | DEBUG | Filling missing minutes for day 2015-01-02...
+2026-01-03 09:51:12,330 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:53:14,375 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:56:42,523 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:57:15,231 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:58:41,047 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 09:59:52,748 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:00:23,085 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:01:32,029 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:02:33,706 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:05:53,120 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:06:10,371 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:12:41,271 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:15:13,840 | DEBUG | Converting Excel xltime to timestamps...
+2026-01-03 10:17:11,286 | INFO | SPY BBO already preprocessed, loading from parquet.
+2026-01-03 10:17:11,380 | INFO | Starting preprocessing of all tickers...
+2026-01-03 10:17:11,381 | INFO | Scanning RAW_FOLDER for tickers...
+2026-01-03 10:17:11,529 | INFO | Found 103 tickers.
+2026-01-03 10:17:11,530 | INFO | 9 tickers need preprocessing.
+2026-01-03 10:17:11,570 | INFO | === Preprocessing ticker WBA.N ===
+2026-01-03 10:17:11,571 | INFO | [WBA.N] Extracting archives...
+2026-01-03 10:17:11,580 | DEBUG | [WBA.N] Found 3 archives.
+2026-01-03 10:17:11,585 | DEBUG | [WBA.N] Extracted WBA.N_2015_bbo.tar
+2026-01-03 10:17:11,590 | DEBUG | [WBA.N] Extracted WBA.N_2016_bbo.tar
+2026-01-03 10:17:11,596 | DEBUG | [WBA.N] Extracted WBA.N_2017_bbo.tar
+2026-01-03 10:17:11,597 | INFO | Loading parquet files in data/extracted/SP100/bbo/WBA.N...
+2026-01-03 10:17:11,602 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,602 | ERROR | No parquet files found for ticker WBA.N
+2026-01-03 10:17:11,603 | ERROR | [WBA.N] Error during preprocessing: No parquet files found for ticker WBA.N
+2026-01-03 10:17:11,604 | INFO | === Preprocessing ticker FB.N ===
+2026-01-03 10:17:11,606 | INFO | [FB.N] Extracting archives...
+2026-01-03 10:17:11,615 | DEBUG | [FB.N] Found 3 archives.
+2026-01-03 10:17:11,619 | DEBUG | [FB.N] Extracted FB.N_2015_bbo.tar
+2026-01-03 10:17:11,623 | DEBUG | [FB.N] Extracted FB.N_2016_bbo.tar
+2026-01-03 10:17:11,627 | DEBUG | [FB.N] Extracted FB.N_2017_bbo.tar
+2026-01-03 10:17:11,628 | INFO | Loading parquet files in data/extracted/SP100/bbo/FB.N...
+2026-01-03 10:17:11,631 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,631 | ERROR | No parquet files found for ticker FB.N
+2026-01-03 10:17:11,633 | ERROR | [FB.N] Error during preprocessing: No parquet files found for ticker FB.N
+2026-01-03 10:17:11,635 | INFO | === Preprocessing ticker KHC.N ===
+2026-01-03 10:17:11,636 | INFO | [KHC.N] Extracting archives...
+2026-01-03 10:17:11,646 | DEBUG | [KHC.N] Found 3 archives.
+2026-01-03 10:17:11,649 | DEBUG | [KHC.N] Extracted KHC.N_2015_bbo.tar
+2026-01-03 10:17:11,651 | DEBUG | [KHC.N] Extracted KHC.N_2016_bbo.tar
+2026-01-03 10:17:11,654 | DEBUG | [KHC.N] Extracted KHC.N_2017_bbo.tar
+2026-01-03 10:17:11,654 | INFO | Loading parquet files in data/extracted/SP100/bbo/KHC.N...
+2026-01-03 10:17:11,656 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,657 | ERROR | No parquet files found for ticker KHC.N
+2026-01-03 10:17:11,658 | ERROR | [KHC.N] Error during preprocessing: No parquet files found for ticker KHC.N
+2026-01-03 10:17:11,660 | INFO | === Preprocessing ticker BRK.B.OQ ===
+2026-01-03 10:17:11,661 | INFO | [BRK.B.OQ] Extracting archives...
+2026-01-03 10:17:11,669 | DEBUG | [BRK.B.OQ] Found 3 archives.
+2026-01-03 10:17:11,672 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2015_bbo.tar
+2026-01-03 10:17:11,674 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2016_bbo.tar
+2026-01-03 10:17:11,677 | DEBUG | [BRK.B.OQ] Extracted BRK.B.OQ_2017_bbo.tar
+2026-01-03 10:17:11,678 | INFO | Loading parquet files in data/extracted/SP100/bbo/BRK.B.OQ...
+2026-01-03 10:17:11,680 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,681 | ERROR | No parquet files found for ticker BRK.B.OQ
+2026-01-03 10:17:11,681 | ERROR | [BRK.B.OQ] Error during preprocessing: No parquet files found for ticker BRK.B.OQ
+2026-01-03 10:17:11,682 | INFO | === Preprocessing ticker XOM.OQ ===
+2026-01-03 10:17:11,683 | INFO | [XOM.OQ] Extracting archives...
+2026-01-03 10:17:11,688 | DEBUG | [XOM.OQ] Found 3 archives.
+2026-01-03 10:17:11,692 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2015_bbo.tar
+2026-01-03 10:17:11,695 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2016_bbo.tar
+2026-01-03 10:17:11,697 | DEBUG | [XOM.OQ] Extracted XOM.OQ_2017_bbo.tar
+2026-01-03 10:17:11,697 | INFO | Loading parquet files in data/extracted/SP100/bbo/XOM.OQ...
+2026-01-03 10:17:11,699 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,700 | ERROR | No parquet files found for ticker XOM.OQ
+2026-01-03 10:17:11,701 | ERROR | [XOM.OQ] Error during preprocessing: No parquet files found for ticker XOM.OQ
+2026-01-03 10:17:11,702 | INFO | === Preprocessing ticker TXN.N ===
+2026-01-03 10:17:11,702 | INFO | [TXN.N] Extracting archives...
+2026-01-03 10:17:11,708 | DEBUG | [TXN.N] Found 3 archives.
+2026-01-03 10:17:11,714 | DEBUG | [TXN.N] Extracted TXN.N_2015_bbo.tar
+2026-01-03 10:17:11,717 | DEBUG | [TXN.N] Extracted TXN.N_2016_bbo.tar
+2026-01-03 10:17:11,719 | DEBUG | [TXN.N] Extracted TXN.N_2017_bbo.tar
+2026-01-03 10:17:11,720 | INFO | Loading parquet files in data/extracted/SP100/bbo/TXN.N...
+2026-01-03 10:17:11,722 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,723 | ERROR | No parquet files found for ticker TXN.N
+2026-01-03 10:17:11,723 | ERROR | [TXN.N] Error during preprocessing: No parquet files found for ticker TXN.N
+2026-01-03 10:17:11,724 | INFO | === Preprocessing ticker ORCL.OQ ===
+2026-01-03 10:17:11,727 | INFO | [ORCL.OQ] Extracting archives...
+2026-01-03 10:17:11,732 | DEBUG | [ORCL.OQ] Found 3 archives.
+2026-01-03 10:17:11,735 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2015_bbo.tar
+2026-01-03 10:17:11,738 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2016_bbo.tar
+2026-01-03 10:17:11,740 | DEBUG | [ORCL.OQ] Extracted ORCL.OQ_2017_bbo.tar
+2026-01-03 10:17:11,741 | INFO | Loading parquet files in data/extracted/SP100/bbo/ORCL.OQ...
+2026-01-03 10:17:11,744 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,744 | ERROR | No parquet files found for ticker ORCL.OQ
+2026-01-03 10:17:11,745 | ERROR | [ORCL.OQ] Error during preprocessing: No parquet files found for ticker ORCL.OQ
+2026-01-03 10:17:11,746 | INFO | === Preprocessing ticker ABBV.OQ ===
+2026-01-03 10:17:11,747 | INFO | [ABBV.OQ] Extracting archives...
+2026-01-03 10:17:11,752 | DEBUG | [ABBV.OQ] Found 3 archives.
+2026-01-03 10:17:11,756 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2015_bbo.tar
+2026-01-03 10:17:11,759 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2016_bbo.tar
+2026-01-03 10:17:11,761 | DEBUG | [ABBV.OQ] Extracted ABBV.OQ_2017_bbo.tar
+2026-01-03 10:17:11,762 | INFO | Loading parquet files in data/extracted/SP100/bbo/ABBV.OQ...
+2026-01-03 10:17:11,764 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,765 | ERROR | No parquet files found for ticker ABBV.OQ
+2026-01-03 10:17:11,765 | ERROR | [ABBV.OQ] Error during preprocessing: No parquet files found for ticker ABBV.OQ
+2026-01-03 10:17:11,767 | INFO | === Preprocessing ticker FOX.N ===
+2026-01-03 10:17:11,769 | INFO | [FOX.N] Extracting archives...
+2026-01-03 10:17:11,774 | DEBUG | [FOX.N] Found 3 archives.
+2026-01-03 10:17:11,779 | DEBUG | [FOX.N] Extracted FOX.N_2015_bbo.tar
+2026-01-03 10:17:11,781 | DEBUG | [FOX.N] Extracted FOX.N_2016_bbo.tar
+2026-01-03 10:17:11,784 | DEBUG | [FOX.N] Extracted FOX.N_2017_bbo.tar
+2026-01-03 10:17:11,785 | INFO | Loading parquet files in data/extracted/SP100/bbo/FOX.N...
+2026-01-03 10:17:11,787 | INFO | Loaded 0 parquet files.
+2026-01-03 10:17:11,787 | ERROR | No parquet files found for ticker FOX.N
+2026-01-03 10:17:11,788 | ERROR | [FOX.N] Error during preprocessing: No parquet files found for ticker FOX.N
+2026-01-03 10:17:11,790 | INFO | 94 tickers processed successfully over 103 total.
+2026-01-03 10:17:11,843 | INFO | Starting selection of complete tickers...
+2026-01-03 10:17:12,073 | DEBUG | Total trading days: 566, exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:12,073 | DEBUG | Trading days after removing exceptions: 565
+2026-01-03 10:17:12,367 | DEBUG | [MMM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:12,473 | DEBUG | [MMM.N.parquet] Copied to selected folder
+2026-01-03 10:17:12,575 | DEBUG | [C.N.parquet] Copied to selected folder
+2026-01-03 10:17:12,649 | DEBUG | [IBM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:12,713 | DEBUG | [IBM.N.parquet] Copied to selected folder
+2026-01-03 10:17:12,769 | DEBUG | [INTC.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:12,850 | DEBUG | [INTC.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:12,928 | DEBUG | [GOOGL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:13,021 | DEBUG | [GOOGL.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:13,084 | DEBUG | [V.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:13,143 | DEBUG | [V.N.parquet] Copied to selected folder
+2026-01-03 10:17:13,242 | DEBUG | [WFC.N.parquet] Copied to selected folder
+2026-01-03 10:17:13,288 | DEBUG | [SBUX.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:13,363 | DEBUG | [SBUX.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:13,471 | DEBUG | [UNP.N.parquet] Copied to selected folder
+2026-01-03 10:17:13,528 | DEBUG | [HON.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:13,587 | DEBUG | [HON.N.parquet] Copied to selected folder
+2026-01-03 10:17:13,643 | DEBUG | [MRK.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:13,702 | DEBUG | [MRK.N.parquet] Copied to selected folder
+2026-01-03 10:17:13,752 | DEBUG | [AAPL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:13,885 | DEBUG | [AAPL.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:13,990 | DEBUG | [PEP.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,094 | DEBUG | [USB.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,210 | DEBUG | [BK.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,249 | DEBUG | [PYPL.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:14,283 | WARNING | [PYPL.OQ.parquet] Missing 136 trading days: [datetime.date(2015, 1, 2), datetime.date(2015, 1, 5), datetime.date(2015, 1, 6), datetime.date(2015, 1, 7), datetime.date(2015, 1, 8), datetime.date(2015, 1, 9), datetime.date(2015, 1, 12), datetime.date(2015, 1, 13), datetime.date(2015, 1, 14), datetime.date(2015, 1, 15), datetime.date(2015, 1, 16), datetime.date(2015, 1, 20), datetime.date(2015, 1, 21), datetime.date(2015, 1, 22), datetime.date(2015, 1, 23), datetime.date(2015, 1, 26), datetime.date(2015, 1, 27), datetime.date(2015, 1, 28), datetime.date(2015, 1, 29), datetime.date(2015, 1, 30), datetime.date(2015, 2, 2), datetime.date(2015, 2, 3), datetime.date(2015, 2, 4), datetime.date(2015, 2, 5), datetime.date(2015, 2, 6), datetime.date(2015, 2, 9), datetime.date(2015, 2, 10), datetime.date(2015, 2, 11), datetime.date(2015, 2, 12), datetime.date(2015, 2, 13), datetime.date(2015, 2, 17), datetime.date(2015, 2, 18), datetime.date(2015, 2, 19), datetime.date(2015, 2, 20), datetime.date(2015, 2, 23), datetime.date(2015, 2, 24), datetime.date(2015, 2, 25), datetime.date(2015, 2, 26), datetime.date(2015, 2, 27), datetime.date(2015, 3, 2), datetime.date(2015, 3, 3), datetime.date(2015, 3, 4), datetime.date(2015, 3, 5), datetime.date(2015, 3, 6), datetime.date(2015, 3, 9), datetime.date(2015, 3, 10), datetime.date(2015, 3, 11), datetime.date(2015, 3, 12), datetime.date(2015, 3, 13), datetime.date(2015, 3, 16), datetime.date(2015, 3, 17), datetime.date(2015, 3, 18), datetime.date(2015, 3, 19), datetime.date(2015, 3, 20), datetime.date(2015, 3, 23), datetime.date(2015, 3, 24), datetime.date(2015, 3, 25), datetime.date(2015, 3, 26), datetime.date(2015, 3, 27), datetime.date(2015, 3, 30), datetime.date(2015, 3, 31), datetime.date(2015, 4, 1), datetime.date(2015, 4, 2), datetime.date(2015, 4, 6), datetime.date(2015, 4, 7), datetime.date(2015, 4, 8), datetime.date(2015, 4, 9), datetime.date(2015, 4, 10), datetime.date(2015, 4, 13), datetime.date(2015, 4, 14), datetime.date(2015, 4, 15), datetime.date(2015, 4, 16), datetime.date(2015, 4, 17), datetime.date(2015, 4, 20), datetime.date(2015, 4, 21), datetime.date(2015, 4, 22), datetime.date(2015, 4, 23), datetime.date(2015, 4, 24), datetime.date(2015, 4, 27), datetime.date(2015, 4, 28), datetime.date(2015, 4, 29), datetime.date(2015, 4, 30), datetime.date(2015, 5, 1), datetime.date(2015, 5, 4), datetime.date(2015, 5, 5), datetime.date(2015, 5, 6), datetime.date(2015, 5, 7), datetime.date(2015, 5, 8), datetime.date(2015, 5, 11), datetime.date(2015, 5, 12), datetime.date(2015, 5, 13), datetime.date(2015, 5, 14), datetime.date(2015, 5, 15), datetime.date(2015, 5, 18), datetime.date(2015, 5, 19), datetime.date(2015, 5, 20), datetime.date(2015, 5, 21), datetime.date(2015, 5, 22), datetime.date(2015, 5, 26), datetime.date(2015, 5, 27), datetime.date(2015, 5, 28), datetime.date(2015, 5, 29), datetime.date(2015, 6, 1), datetime.date(2015, 6, 2), datetime.date(2015, 6, 3), datetime.date(2015, 6, 4), datetime.date(2015, 6, 5), datetime.date(2015, 6, 8), datetime.date(2015, 6, 9), datetime.date(2015, 6, 10), datetime.date(2015, 6, 11), datetime.date(2015, 6, 12), datetime.date(2015, 6, 15), datetime.date(2015, 6, 16), datetime.date(2015, 6, 17), datetime.date(2015, 6, 18), datetime.date(2015, 6, 19), datetime.date(2015, 6, 22), datetime.date(2015, 6, 23), datetime.date(2015, 6, 24), datetime.date(2015, 6, 25), datetime.date(2015, 6, 26), datetime.date(2015, 6, 29), datetime.date(2015, 6, 30), datetime.date(2015, 7, 1), datetime.date(2015, 7, 2), datetime.date(2015, 7, 6), datetime.date(2015, 7, 7), datetime.date(2015, 7, 8), datetime.date(2015, 7, 9), datetime.date(2015, 7, 10), datetime.date(2015, 7, 13), datetime.date(2015, 7, 14), datetime.date(2015, 7, 15), datetime.date(2015, 7, 16), datetime.date(2015, 7, 17)]
+2026-01-03 10:17:14,401 | DEBUG | [BLK.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,468 | DEBUG | [DIS.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:14,566 | DEBUG | [DIS.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,631 | DEBUG | [KO.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:14,700 | DEBUG | [KO.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,800 | DEBUG | [BAC.N.parquet] Copied to selected folder
+2026-01-03 10:17:14,841 | DEBUG | [MSFT.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:14,937 | DEBUG | [MSFT.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:15,040 | DEBUG | [GD.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,087 | DEBUG | [FOXA.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:15,165 | DEBUG | [FOXA.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:15,271 | DEBUG | [COP.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,339 | DEBUG | [AXP.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:15,480 | DEBUG | [AXP.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,580 | DEBUG | [MDT.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,731 | DEBUG | [PFE.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,796 | DEBUG | [JPM.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:15,879 | DEBUG | [JPM.N.parquet] Copied to selected folder
+2026-01-03 10:17:15,988 | DEBUG | [AIG.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,094 | DEBUG | [MA.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,195 | DEBUG | [MS.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,291 | DEBUG | [CL.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,380 | DEBUG | [GE.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,438 | DEBUG | [MCD.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:16,501 | DEBUG | [MCD.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,605 | DEBUG | [NEE.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,692 | DEBUG | [T.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,748 | DEBUG | [CVX.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:16,819 | DEBUG | [CVX.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,878 | DEBUG | [DOW.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:16,937 | DEBUG | [DOW.N.parquet] Copied to selected folder
+2026-01-03 10:17:16,989 | DEBUG | [GILD.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:17,071 | DEBUG | [GILD.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:17,161 | WARNING | [AMZN.OQ.parquet] Missing 40 trading days: [datetime.date(2015, 11, 3), datetime.date(2015, 11, 4), datetime.date(2015, 11, 5), datetime.date(2015, 11, 6), datetime.date(2015, 11, 9), datetime.date(2015, 11, 10), datetime.date(2015, 11, 11), datetime.date(2015, 11, 12), datetime.date(2015, 11, 13), datetime.date(2015, 11, 16), datetime.date(2015, 11, 17), datetime.date(2015, 11, 18), datetime.date(2015, 11, 19), datetime.date(2015, 11, 20), datetime.date(2015, 11, 23), datetime.date(2015, 11, 24), datetime.date(2015, 11, 25), datetime.date(2015, 11, 30), datetime.date(2015, 12, 1), datetime.date(2015, 12, 2), datetime.date(2015, 12, 3), datetime.date(2015, 12, 4), datetime.date(2015, 12, 7), datetime.date(2015, 12, 8), datetime.date(2015, 12, 9), datetime.date(2015, 12, 10), datetime.date(2015, 12, 11), datetime.date(2015, 12, 14), datetime.date(2015, 12, 15), datetime.date(2015, 12, 16), datetime.date(2015, 12, 17), datetime.date(2015, 12, 18), datetime.date(2015, 12, 21), datetime.date(2015, 12, 22), datetime.date(2015, 12, 23), datetime.date(2015, 12, 24), datetime.date(2015, 12, 28), datetime.date(2015, 12, 29), datetime.date(2015, 12, 30), datetime.date(2015, 12, 31)]
+2026-01-03 10:17:17,259 | DEBUG | [PM.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,370 | DEBUG | [LMT.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,476 | DEBUG | [OXY.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,575 | DEBUG | [LLY.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,675 | DEBUG | [TWX.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,786 | DEBUG | [UTX.N.parquet] Copied to selected folder
+2026-01-03 10:17:17,847 | DEBUG | [BA.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:17,913 | DEBUG | [BA.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,007 | DEBUG | [ABT.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,111 | DEBUG | [LOW.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,156 | DEBUG | [GOOG.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:18,234 | DEBUG | [GOOG.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:18,300 | DEBUG | [UNH.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:18,435 | DEBUG | [UNH.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,539 | DEBUG | [EXC.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,651 | DEBUG | [FDX.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,715 | DEBUG | [JNJ.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:18,804 | DEBUG | [JNJ.N.parquet] Copied to selected folder
+2026-01-03 10:17:18,916 | DEBUG | [COF.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,015 | DEBUG | [MET.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,115 | DEBUG | [DHR.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,217 | DEBUG | [DD.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,286 | DEBUG | [GS.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:19,370 | DEBUG | [GS.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,483 | DEBUG | [MO.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,599 | DEBUG | [BMY.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,670 | DEBUG | [CAT.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:19,767 | DEBUG | [CAT.N.parquet] Copied to selected folder
+2026-01-03 10:17:19,810 | DEBUG | [CSCO.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:19,893 | DEBUG | [CSCO.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:20,006 | DEBUG | [SPG.N.parquet] Copied to selected folder
+2026-01-03 10:17:20,075 | WARNING | [AGN.N.parquet] Missing 62 trading days: [datetime.date(2015, 3, 17), datetime.date(2015, 3, 18), datetime.date(2015, 3, 19), datetime.date(2015, 3, 20), datetime.date(2015, 3, 23), datetime.date(2015, 3, 24), datetime.date(2015, 3, 25), datetime.date(2015, 3, 26), datetime.date(2015, 3, 27), datetime.date(2015, 3, 30), datetime.date(2015, 3, 31), datetime.date(2015, 4, 1), datetime.date(2015, 4, 2), datetime.date(2015, 4, 6), datetime.date(2015, 4, 7), datetime.date(2015, 4, 8), datetime.date(2015, 4, 9), datetime.date(2015, 4, 10), datetime.date(2015, 4, 13), datetime.date(2015, 4, 14), datetime.date(2015, 4, 15), datetime.date(2015, 4, 16), datetime.date(2015, 4, 17), datetime.date(2015, 4, 20), datetime.date(2015, 4, 21), datetime.date(2015, 4, 22), datetime.date(2015, 4, 23), datetime.date(2015, 4, 24), datetime.date(2015, 4, 27), datetime.date(2015, 4, 28), datetime.date(2015, 4, 29), datetime.date(2015, 4, 30), datetime.date(2015, 5, 1), datetime.date(2015, 5, 4), datetime.date(2015, 5, 5), datetime.date(2015, 5, 6), datetime.date(2015, 5, 7), datetime.date(2015, 5, 8), datetime.date(2015, 5, 11), datetime.date(2015, 5, 12), datetime.date(2015, 5, 13), datetime.date(2015, 5, 14), datetime.date(2015, 5, 15), datetime.date(2015, 5, 18), datetime.date(2015, 5, 19), datetime.date(2015, 5, 20), datetime.date(2015, 5, 21), datetime.date(2015, 5, 22), datetime.date(2015, 5, 26), datetime.date(2015, 5, 27), datetime.date(2015, 5, 28), datetime.date(2015, 5, 29), datetime.date(2015, 6, 1), datetime.date(2015, 6, 2), datetime.date(2015, 6, 3), datetime.date(2015, 6, 4), datetime.date(2015, 6, 5), datetime.date(2015, 6, 8), datetime.date(2015, 6, 9), datetime.date(2015, 6, 10), datetime.date(2015, 6, 11), datetime.date(2015, 6, 12)]
+2026-01-03 10:17:20,139 | DEBUG | [NKE.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:20,222 | DEBUG | [NKE.N.parquet] Copied to selected folder
+2026-01-03 10:17:20,330 | DEBUG | [UPS.N.parquet] Copied to selected folder
+2026-01-03 10:17:20,387 | DEBUG | [AMGN.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:20,516 | DEBUG | [AMGN.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:20,573 | DEBUG | [HD.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:20,666 | DEBUG | [HD.N.parquet] Copied to selected folder
+2026-01-03 10:17:20,716 | DEBUG | [QCOM.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:20,792 | DEBUG | [QCOM.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:20,848 | DEBUG | [VZ.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:20,918 | DEBUG | [VZ.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,030 | DEBUG | [ACN.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,080 | DEBUG | [CMCSA.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:21,184 | DEBUG | [CMCSA.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:21,294 | DEBUG | [CVS.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,346 | DEBUG | [BIIB.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:21,427 | DEBUG | [BIIB.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:21,542 | DEBUG | [MON.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,646 | DEBUG | [ALL.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,752 | DEBUG | [DUK.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,865 | DEBUG | [SLB.N.parquet] Copied to selected folder
+2026-01-03 10:17:21,930 | DEBUG | [WMT.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:22,025 | DEBUG | [WMT.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,075 | DEBUG | [CELG.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:22,158 | DEBUG | [CELG.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:22,225 | DEBUG | [PG.N.parquet] Removing extra dates outside range: [datetime.date(2017, 4, 3), datetime.date(2017, 4, 4), datetime.date(2017, 4, 5), datetime.date(2017, 4, 6), datetime.date(2017, 4, 7), datetime.date(2017, 4, 10), datetime.date(2017, 4, 11), datetime.date(2017, 4, 12)]
+2026-01-03 10:17:22,285 | DEBUG | [PG.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,384 | DEBUG | [TGT.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,478 | DEBUG | [GM.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,594 | DEBUG | [EMR.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,676 | DEBUG | [F.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,825 | DEBUG | [HAL.N.parquet] Copied to selected folder
+2026-01-03 10:17:22,939 | DEBUG | [RTN.N.parquet] Copied to selected folder
+2026-01-03 10:17:23,048 | DEBUG | [KMI.N.parquet] Copied to selected folder
+2026-01-03 10:17:23,099 | DEBUG | [PCLN.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:23,183 | DEBUG | [PCLN.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:23,283 | DEBUG | [SO.N.parquet] Copied to selected folder
+2026-01-03 10:17:23,330 | DEBUG | [MDLZ.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:23,400 | DEBUG | [MDLZ.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:23,443 | DEBUG | [COST.OQ.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:23,541 | DEBUG | [COST.OQ.parquet] Copied to selected folder
+2026-01-03 10:17:23,576 | DEBUG | [SPY.P.parquet] Deleted exception dates: {datetime.date(2015, 11, 27)}
+2026-01-03 10:17:23,655 | DEBUG | [SPY.P.parquet] Copied to selected folder
+2026-01-03 10:17:23,655 | INFO | Selection completed: 91/94 files copied to data/selected/SP100/bbo
+2026-01-03 10:17:23,780 | INFO | Counting rows for each selected ticker...
+2026-01-03 10:17:23,810 | DEBUG | MMM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,823 | DEBUG | C.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,842 | DEBUG | IBM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,855 | DEBUG | INTC.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,871 | DEBUG | GOOGL.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,885 | DEBUG | V.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,899 | DEBUG | WFC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,914 | DEBUG | SBUX.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,931 | DEBUG | UNP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,949 | DEBUG | HON.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,964 | DEBUG | MRK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,979 | DEBUG | AAPL.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:23,997 | DEBUG | PEP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,015 | DEBUG | USB.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,029 | DEBUG | BK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,048 | DEBUG | BLK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,067 | DEBUG | DIS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,084 | DEBUG | KO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,098 | DEBUG | BAC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,115 | DEBUG | MSFT.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,130 | DEBUG | GD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,141 | DEBUG | FOXA.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,155 | DEBUG | COP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,167 | DEBUG | AXP.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,182 | DEBUG | MDT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,193 | DEBUG | PFE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,206 | DEBUG | JPM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,219 | DEBUG | AIG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,231 | DEBUG | MA.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,244 | DEBUG | MS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,257 | DEBUG | CL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,269 | DEBUG | GE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,283 | DEBUG | MCD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,298 | DEBUG | NEE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,312 | DEBUG | T.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,327 | DEBUG | CVX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,341 | DEBUG | DOW.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,361 | DEBUG | GILD.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,379 | DEBUG | PM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,401 | DEBUG | LMT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,421 | DEBUG | OXY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,438 | DEBUG | LLY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,458 | DEBUG | TWX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,476 | DEBUG | UTX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,492 | DEBUG | BA.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,505 | DEBUG | ABT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,520 | DEBUG | LOW.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,542 | DEBUG | GOOG.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,559 | DEBUG | UNH.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,573 | DEBUG | EXC.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,589 | DEBUG | FDX.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,605 | DEBUG | JNJ.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,621 | DEBUG | COF.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,635 | DEBUG | MET.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,650 | DEBUG | DHR.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,664 | DEBUG | DD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,680 | DEBUG | GS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,695 | DEBUG | MO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,709 | DEBUG | BMY.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,716 | DEBUG | CAT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,723 | DEBUG | CSCO.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,730 | DEBUG | SPG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,737 | DEBUG | NKE.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,744 | DEBUG | UPS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,751 | DEBUG | AMGN.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,757 | DEBUG | HD.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,764 | DEBUG | QCOM.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,771 | DEBUG | VZ.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,777 | DEBUG | ACN.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,784 | DEBUG | CMCSA.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,791 | DEBUG | CVS.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,798 | DEBUG | BIIB.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,806 | DEBUG | MON.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,813 | DEBUG | ALL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,819 | DEBUG | DUK.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,826 | DEBUG | SLB.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,833 | DEBUG | WMT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,840 | DEBUG | CELG.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,847 | DEBUG | PG.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,854 | DEBUG | TGT.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,861 | DEBUG | GM.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,868 | DEBUG | EMR.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,874 | DEBUG | F.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,881 | DEBUG | HAL.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,888 | DEBUG | RTN.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,895 | DEBUG | KMI.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,903 | DEBUG | PCLN.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,911 | DEBUG | SO.N.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,918 | DEBUG | MDLZ.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,925 | DEBUG | COST.OQ.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,934 | DEBUG | SPY.P.parquet: 219785 rows (meets expected 219785)
+2026-01-03 10:17:24,934 | INFO | Number of tickers with the expected number of rows: 91 out of 91
+2026-01-03 10:17:25,043 | DEBUG | Converting Excel xltime to timestamps...

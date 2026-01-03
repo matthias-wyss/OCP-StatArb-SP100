@@ -11,6 +11,8 @@ import polars as pl
 import pandas as pd
 import pandas_market_calendars as mcal
 from tqdm.notebook import tqdm
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 
 
@@ -50,6 +52,7 @@ RAW_FOLDER = Path("data/raw/SP100/bbo/")  # original tar archives
 EXTRACTED_FOLDER = Path("data/extracted/SP100/bbo/")  # temporary extraction folder
 PREPROCESSED_FOLDER = Path("data/preprocessed/SP100/bbo/")  # final output parquet
 SELECTED_FOLDER = Path("data/selected/SP100/bbo/")  # selected data for analysis
+PLOTS_FOLDER = Path("outputs/")  # folder for plots
 
 EXPECTED_MIDPRICES_PER_DAY = 390  # number of minutes in regular trading hours (6.5h * 60)
 EXPECTED_RETURNS_PER_DAY = EXPECTED_MIDPRICES_PER_DAY - 1  # returns are one less than prices
@@ -721,6 +724,11 @@ def preprocess_spy() -> pl.DataFrame:
     TEMP_SPY_TIMESTAMP_FOLDER.mkdir(parents=True, exist_ok=True)
     TEMP_SPY_PREPROCESSED_FOLDER.mkdir(parents=True, exist_ok=True)
 
+    # check if already preprocessed
+    if (PREPROCESSED_FOLDER / f"{ticker}.parquet").exists():
+        logger.info(f"SPY BBO already preprocessed, loading from parquet.")
+        return pl.read_parquet(PREPROCESSED_FOLDER / f"{ticker}.parquet")
+
     logger.info(f"Starting SPY BBO preprocessing...")
 
     ticker_folder = extract_archives_for_ticker(ticker)
@@ -760,3 +768,92 @@ def preprocess_spy() -> pl.DataFrame:
 
     return merged
 
+
+
+
+def plot_1min_intraday_midprices_and_returns(ticker: str, date: dt.date) -> None:
+    """Plot 1-minute midprices and midprice returns for a given ticker and date. Saves plots to PLOTS_FOLDER.
+
+    Args:
+        ticker (str): Ticker symbol.
+        date (dt.date): Date for which to get midprices.
+
+    Returns:
+        None
+    """
+
+    file_path = f"data/extracted/SP100/bbo/{ticker}/{date.year}-{date.month:02d}-{date.day:02d}-{ticker}-bbo.parquet"
+    df = pl.read_parquet(file_path)
+    df = convert_xltime_to_timestamp(df)
+
+    # Timezone handling
+    df = df.with_columns(
+        pl.col("timestamp").dt.convert_time_zone(TIMEZONE)
+    )
+
+    # Filter regular trading hours
+    df = df.filter(
+                (pl.col("timestamp").dt.time() > pl.time(9, 30)) &
+                (pl.col("timestamp").dt.time() < pl.time(16, 0))
+            )
+    # Compute midprice
+    df = df.with_columns(
+        ((pl.col("bid-price") + pl.col("ask-price")) / 2).alias("mid_price")
+    )
+
+    # Resample to 1-minute bars
+    df_1m = (
+        df.group_by_dynamic("timestamp", every="1m")
+                .agg(pl.col("mid_price").last())
+                .sort("timestamp")
+    )
+
+    df_1m = df_1m.with_columns(
+        (pl.col("timestamp") + pl.duration(minutes=1)).alias("timestamp")
+    )
+
+    if df_1m.height != EXPECTED_MIDPRICES_PER_DAY:
+        print(
+            f"{df_1m.height} midprices found, expected {EXPECTED_MIDPRICES_PER_DAY}."
+        )
+        df_1m = fill_missing_minutes(df_1m)
+
+    # Compute returns
+    df_1m = df_1m.with_columns(
+        pl.col("mid_price").pct_change().alias("mid_price_return")
+    )
+
+    # Convert to list of naive datetimes for plotting
+    timestamps = [ts.replace(tzinfo=None) for ts in df_1m['timestamp'].to_list()]
+    mid_prices = df_1m['mid_price'].to_list()
+    mid_price_returns = df_1m['mid_price_return'].to_list()
+
+    # Plotting mid prices
+    plt.figure(figsize=(12, 6))
+    plt.plot(timestamps, mid_prices)
+
+    # Format x-axis as HH:MM
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(mdates.HourLocator())
+
+    plt.title(f"1-Minute Midprices for {ticker} on {date}")
+    plt.xlabel("Time (HH:MM)")
+    plt.ylabel("Midprice ($)")
+    plt.grid(True)
+    plt.savefig(PLOTS_FOLDER / f"{ticker}_{date}_midprices.png")
+    plt.show()
+
+    # Plotting mid price returns
+    plt.figure(figsize=(12, 6))
+    plt.plot(timestamps, mid_price_returns)
+
+    # Format x-axis as HH:MM
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(mdates.HourLocator())
+
+    plt.title(f"1-Minute Midprice Returns for {ticker} on {date}")
+    plt.xlabel("Time (HH:MM)")
+    plt.ylabel("Midprice Return")
+    plt.grid(True)
+    plt.savefig(PLOTS_FOLDER / f"{ticker}_{date}_midprice_returns.png")
+    plt.show()
