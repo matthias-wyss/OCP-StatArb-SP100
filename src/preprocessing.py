@@ -528,6 +528,11 @@ def load_selected_ticker_frames() -> Dict[str, pl.DataFrame]:
     frames: Dict[str, pl.DataFrame] = {}
 
     for f in SELECTED_FOLDER.glob("*.parquet"):
+        
+        # Ignore files that start with SPY (e.g., SPY.P.parquet)
+        if f.stem.startswith("SPY"):
+            continue
+        
         ticker = f.stem
         try:
             df = pl.read_parquet(f)
