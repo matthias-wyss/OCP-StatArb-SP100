@@ -11,6 +11,8 @@ import polars as pl
 import pandas as pd
 import pandas_market_calendars as mcal
 from tqdm.notebook import tqdm
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 
 
@@ -50,6 +52,7 @@ RAW_FOLDER = Path("data/raw/SP100/bbo/")  # original tar archives
 EXTRACTED_FOLDER = Path("data/extracted/SP100/bbo/")  # temporary extraction folder
 PREPROCESSED_FOLDER = Path("data/preprocessed/SP100/bbo/")  # final output parquet
 SELECTED_FOLDER = Path("data/selected/SP100/bbo/")  # selected data for analysis
+PLOTS_FOLDER = Path("outputs/")  # folder for plots
 
 EXPECTED_MIDPRICES_PER_DAY = 390  # number of minutes in regular trading hours (6.5h * 60)
 EXPECTED_RETURNS_PER_DAY = EXPECTED_MIDPRICES_PER_DAY - 1  # returns are one less than prices
@@ -431,15 +434,23 @@ def select_complete_tickers(
         # Recalculate present dates after optional deletion
         df_dates_cleaned = set(df.select(pl.col("timestamp").dt.date().unique()).to_series().to_list())
 
+        # Remove dates outside the START_DATE - END_DATE range
+        valid_range = set(pd.date_range(START_DATE, END_DATE).date)
+        extra_dates = df_dates_cleaned - valid_range
+        
+        if extra_dates:
+            logger.debug(f"[{f.name}] Removing extra dates outside range: {sorted(extra_dates)}")
+            df = df.filter(pl.col("timestamp").dt.date().is_in(list(valid_range)))
+
         # Compute missing trading days ignoring exceptions
-        missing_dates = trading_days - df_dates_cleaned - exception_dates_set
+        missing_dates = trading_days - set(df.select(pl.col("timestamp").dt.date().unique()).to_series().to_list()) - exception_dates_set
 
         if missing_dates:
             logger.warning(f"[{f.name}] Missing {len(missing_dates)} trading days: {sorted(missing_dates)}")
         else:
             # Save cleaned file if we deleted exception rows, otherwise copy original
             output_path = SELECTED_FOLDER / f.name
-            if delete_exception_days and exception_dates_set & df_dates:
+            if (delete_exception_days and exception_dates_set & df_dates) or extra_dates:
                 df.write_parquet(output_path)
             else:
                 shutil.copy(f, output_path)
@@ -447,6 +458,12 @@ def select_complete_tickers(
             logger.debug(f"[{f.name}] Copied to selected folder")
 
     logger.info(f"Selection completed: {len(copied_files)}/{len(files)} files copied to {SELECTED_FOLDER}")
+
+    # Check whether SPY file is present
+    spy_copied = "SPY.P.parquet" in copied_files
+
+    if not spy_copied:
+        logger.warning(f"SPY.P.parquet has not been copied to {SELECTED_FOLDER}")
 
 
 def count_tickers_with_expected_rows(
@@ -473,11 +490,13 @@ def count_tickers_with_expected_rows(
             logger.error(f"Error reading {f.name}: {e}")
             continue
 
-        if df.height >= expected_num_rows:
+        if df.height == expected_num_rows:
             num_tickers_with_enough_rows += 1
             logger.debug(f"{f.name}: {df.height} rows (meets expected {expected_num_rows})")
-        else:
+        elif df.height < expected_num_rows:
             logger.warning(f"{f.name}: {df.height} rows (below expected {expected_num_rows})")
+        else:
+            logger.warning(f"{f.name}: {df.height} rows (above expected {expected_num_rows})")
 
     logger.info(f"Number of tickers with the expected number of rows: {num_tickers_with_enough_rows} "
                 f"out of {len(selected_files)}")
@@ -509,6 +528,11 @@ def load_selected_ticker_frames() -> Dict[str, pl.DataFrame]:
     frames: Dict[str, pl.DataFrame] = {}
 
     for f in SELECTED_FOLDER.glob("*.parquet"):
+        
+        # Ignore files that start with SPY (e.g., SPY.P.parquet)
+        if f.stem.startswith("SPY"):
+            continue
+        
         ticker = f.stem
         try:
             df = pl.read_parquet(f)
@@ -608,3 +632,233 @@ def generate_ticker_pairs(tickers: List[str]) -> List[Tuple[str, str]]:
     pairs = list(itertools.combinations(sorted(tickers), 2))
     logger.info(f"Generated {len(pairs)} ticker pairs from {len(tickers)} tickers.")
     return pairs
+
+
+def process_spy_bbo_day(file_path: Path) -> pl.DataFrame | None:
+    """
+    Process one SPY BBO parquet file (single trading day)
+    into 1-minute midprice returns.
+    """
+    try:
+        df = pl.read_parquet(file_path)
+    except Exception as e:
+        logger.error(f"Failed to read {file_path.name}: {e}")
+        return None
+
+    if df.height == 0:
+        logger.warning(f"{file_path.name} is empty.")
+        return None
+
+    # Cast columns
+    df = df.with_columns(
+        pl.col("timestamp").cast(pl.Datetime),
+        pl.col("bid-price").cast(pl.Float64),
+        pl.col("ask-price").cast(pl.Float64),
+        pl.col("bid-volume").cast(pl.Int32),
+        pl.col("ask-volume").cast(pl.Int32),
+    )
+
+    # Timezone handling
+    df = df.with_columns(
+        pl.col("timestamp").dt.convert_time_zone(TIMEZONE)
+    )
+
+    # Regular trading hours
+    df = df.filter(
+        (pl.col("timestamp").dt.time() > pl.time(9, 30)) &
+        (pl.col("timestamp").dt.time() < pl.time(16, 0))
+    )
+
+    if df.height == 0:
+        logger.warning(f"{file_path.name} has no data in RTH.")
+        return None
+
+    # Midprice
+    df = df.with_columns(
+        ((pl.col("bid-price") + pl.col("ask-price")) / 2).alias("mid_price")
+    )
+
+    # 1-minute resampling
+    df_1m = (
+        df.group_by_dynamic("timestamp", every="1m")
+          .agg(pl.col("mid_price").last())
+          .sort("timestamp")
+    )
+
+    # Right-closed bars
+    df_1m = df_1m.with_columns(
+        (pl.col("timestamp") + pl.duration(minutes=1)).alias("timestamp")
+    )
+
+    if df_1m.height != EXPECTED_MIDPRICES_PER_DAY:
+        logger.warning(
+            f"[{file_path.name}] "
+            f"{df_1m.height} midprices instead of {EXPECTED_MIDPRICES_PER_DAY}"
+        )
+        df_1m = fill_missing_minutes(df_1m)
+
+    # Returns
+    df_1m = (
+        df_1m.with_columns(
+            pl.col("mid_price").pct_change().alias("mid_price_return")
+        )
+        .filter(pl.col("mid_price_return").is_not_null())
+        .select(["timestamp", "mid_price_return"])
+    )
+
+    if df_1m.height != EXPECTED_RETURNS_PER_DAY:
+        logger.warning(
+            f"[{file_path.name}] "
+            f"{df_1m.height} returns instead of {EXPECTED_RETURNS_PER_DAY}"
+        )
+
+    return df_1m
+
+
+def preprocess_spy() -> pl.DataFrame:
+    """
+    Full preprocessing pipeline for SPY BBO data.
+    Reads daily BBO files, preprocesses them day by day,
+    merges everything and saves the final parquet.
+    """
+    ticker = "SPY.P"
+    TEMP_FOLDER = Path(f"data/temp/{ticker}/bbo/")
+    TEMP_SPY_TIMESTAMP_FOLDER = TEMP_FOLDER / "to_timestamp/"
+    TEMP_SPY_PREPROCESSED_FOLDER = TEMP_FOLDER / "preprocessed/"
+
+    TEMP_SPY_TIMESTAMP_FOLDER.mkdir(parents=True, exist_ok=True)
+    TEMP_SPY_PREPROCESSED_FOLDER.mkdir(parents=True, exist_ok=True)
+
+    # check if already preprocessed
+    if (PREPROCESSED_FOLDER / f"{ticker}.parquet").exists():
+        logger.info(f"SPY BBO already preprocessed, loading from parquet.")
+        return pl.read_parquet(PREPROCESSED_FOLDER / f"{ticker}.parquet")
+
+    logger.info(f"Starting SPY BBO preprocessing...")
+
+    ticker_folder = extract_archives_for_ticker(ticker)
+
+    for parquet_file in tqdm(sorted(ticker_folder.glob("*.parquet")), desc="Converting SPY days to timestamp"):
+        df_day = pl.read_parquet(parquet_file)
+        df_converted = convert_xltime_to_timestamp(df_day)
+        df_converted.write_parquet(TEMP_SPY_TIMESTAMP_FOLDER / parquet_file.name)
+    daily_dfs = []
+
+    logger.info(f"Processing SPY BBO days...")
+
+    for parquet_file in tqdm(sorted(TEMP_SPY_TIMESTAMP_FOLDER.glob("*.parquet")), desc="Processing SPY days"):
+        df_day = process_spy_bbo_day(parquet_file)
+
+        if df_day is None:
+            continue
+
+        # Save intermediate daily result
+        df_day.write_parquet(TEMP_SPY_PREPROCESSED_FOLDER / parquet_file.name)
+        daily_dfs.append(df_day)
+
+    if not daily_dfs:
+        raise RuntimeError("No valid SPY BBO days processed.")
+
+    merged = (
+        pl.concat(daily_dfs, how="vertical")
+        .sort("timestamp")
+    )
+
+    merged.write_parquet(PREPROCESSED_FOLDER / f"{ticker}.parquet")
+
+    # remove temporary folders
+    shutil.rmtree(TEMP_FOLDER)
+
+    logger.info(f"Finished SPY BBO preprocessing.")
+
+    return merged
+
+
+
+
+def plot_1min_intraday_midprices_and_returns(ticker: str, date: dt.date) -> None:
+    """Plot 1-minute midprices and midprice returns for a given ticker and date. Saves plots to PLOTS_FOLDER.
+
+    Args:
+        ticker (str): Ticker symbol.
+        date (dt.date): Date for which to get midprices.
+
+    Returns:
+        None
+    """
+
+    file_path = f"data/extracted/SP100/bbo/{ticker}/{date.year}-{date.month:02d}-{date.day:02d}-{ticker}-bbo.parquet"
+    df = pl.read_parquet(file_path)
+    df = convert_xltime_to_timestamp(df)
+
+    # Timezone handling
+    df = df.with_columns(
+        pl.col("timestamp").dt.convert_time_zone(TIMEZONE)
+    )
+
+    # Filter regular trading hours
+    df = df.filter(
+                (pl.col("timestamp").dt.time() > pl.time(9, 30)) &
+                (pl.col("timestamp").dt.time() < pl.time(16, 0))
+            )
+    # Compute midprice
+    df = df.with_columns(
+        ((pl.col("bid-price") + pl.col("ask-price")) / 2).alias("mid_price")
+    )
+
+    # Resample to 1-minute bars
+    df_1m = (
+        df.group_by_dynamic("timestamp", every="1m")
+                .agg(pl.col("mid_price").last())
+                .sort("timestamp")
+    )
+
+    df_1m = df_1m.with_columns(
+        (pl.col("timestamp") + pl.duration(minutes=1)).alias("timestamp")
+    )
+
+    if df_1m.height != EXPECTED_MIDPRICES_PER_DAY:
+        print(
+            f"{df_1m.height} midprices found, expected {EXPECTED_MIDPRICES_PER_DAY}."
+        )
+        df_1m = fill_missing_minutes(df_1m)
+
+    # Compute returns
+    df_1m = df_1m.with_columns(
+        pl.col("mid_price").pct_change().alias("mid_price_return")
+    )
+
+    # Convert to list of naive datetimes for plotting
+    timestamps = [ts.replace(tzinfo=None) for ts in df_1m['timestamp'].to_list()]
+    mid_prices = df_1m['mid_price'].to_list()
+    mid_price_returns = df_1m['mid_price_return'].to_list()
+
+    # Plotting mid prices
+    plt.figure(figsize=(12, 6))
+    plt.plot(timestamps, mid_prices)
+
+    # Format x-axis as HH:MM
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(mdates.HourLocator())
+
+    plt.title(f"1-Minute Midprices for {ticker} on {date}")
+    plt.xlabel("Time (HH:MM)")
+    plt.ylabel("Midprice ($)")
+    plt.grid(True)
+    plt.savefig(PLOTS_FOLDER / f"{ticker}_{date}_midprices.png")
+    plt.show()
+
+    # Plotting mid price returns
+    plt.figure(figsize=(12, 6))
+    plt.plot(timestamps, mid_price_returns)
+
+    # Format x-axis as HH:MM
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(mdates.HourLocator())
+
+    plt.title(f"1-Minute Midprice Returns for {ticker} on {date}")
+    plt.xlabel("Time (HH:MM)")
+    plt.ylabel("Midprice Return")
+    plt.grid(True)
+    plt.savefig(PLOTS_FOLDER / f"{ticker}_{date}_midprice_returns.png")
+    plt.show()
