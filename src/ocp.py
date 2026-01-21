@@ -157,7 +157,11 @@ def _step_a_constant_lag(x: np.ndarray, y: np.ndarray, max_lag: int) -> int:
 
 def step_a_constant_lag_fast(x, y, max_lag):
     n, m = len(x), len(y)
-    L = min(max_lag, max(0, n - m))
+    
+    if n == 0 or m == 0:
+        return 0
+    L = min(max_lag, n-1)
+    
     if L <= 0:
         return 0
 
@@ -169,6 +173,7 @@ def step_a_constant_lag_fast(x, y, max_lag):
     )
     costs = np.sum(np.abs(Xwin - y[None, :]), axis=1)
     return int(np.argmin(costs))
+
 
 
 @nb.njit
@@ -460,40 +465,76 @@ def ocp_pair(
     return r1 if r1.cost <= r2.cost else r2
 
 
-def ocp_pair_fast(day_matrix, pair, max_lag=30, band=10, min_abs_lag=1.0, max_sigma=50.0):
+def ocp_pair_fast(
+    day_matrix: pd.DataFrame,
+    pair: Tuple[str, str],
+    max_lag: int = 30,
+    band: int = 10,
+    min_abs_lag: float = 1.0,
+    max_sigma: float = 50.0,
+) -> Optional[Tuple[str, str, float, float, float]]:
+    """
+    Fast OCP for one pair.
+
+    Returns:
+        (leader, follower, l_hat, sigma_l, cost)
+
+    Convention:
+        - l_hat >= 0 always.
+        - l_hat is the average lag (in minutes) by which LEADER leads FOLLOWER.
+    """
     a, b = pair
     xa = day_matrix[a].to_numpy(np.float64)
     xb = day_matrix[b].to_numpy(np.float64)
 
-    # Try orientation a->b
+    # optional: standardize both series for scale invariance
+    def _zscore(z: np.ndarray) -> np.ndarray:
+        mu = z.mean()
+        s = z.std()
+        return (z - mu) / (s + 1e-12)
+
+    xa = _zscore(xa)
+    xb = _zscore(xb)
+
+    best = None  # (leader, follower, l_hat_pos, sigma, cost)
+
+    # Orientation a -> b
     l0 = step_a_constant_lag_fast(xa, xb, max_lag=max_lag)
     cost1, lhat1, sig1 = ocp_banded_dp_stats(xa, xb, l0, band)
+    if np.isfinite(cost1) and sig1 <= max_sigma and abs(lhat1) >= min_abs_lag:
+        if lhat1 >= 0:
+            leader, follower = a, b
+            lag_pos = float(lhat1)
+        else:
+            leader, follower = b, a
+            lag_pos = float(-lhat1)  # flip sign so lag is always LEADER -> FOLLOWER
 
-    best = None
-    if np.isfinite(cost1) and abs(lhat1) >= min_abs_lag and sig1 <= max_sigma:
-        leader, follower = (a, b) if lhat1 > 0 else (b, a)
-        best = (leader, follower, float(lhat1), float(sig1), float(cost1))
+        best = (leader, follower, lag_pos, float(sig1), float(cost1))
 
-    # Try orientation b->a
+    # Orientation b -> a
     l0 = step_a_constant_lag_fast(xb, xa, max_lag=max_lag)
     cost2, lhat2, sig2 = ocp_banded_dp_stats(xb, xa, l0, band)
+    if np.isfinite(cost2) and sig2 <= max_sigma and abs(lhat2) >= min_abs_lag:
+        if lhat2 >= 0:
+            leader2, follower2 = b, a
+            lag2_pos = float(lhat2)
+        else:
+            leader2, follower2 = a, b
+            lag2_pos = float(-lhat2)
 
-    cand = None
-    if np.isfinite(cost2) and abs(lhat2) >= min_abs_lag and sig2 <= max_sigma:
-        leader, follower = (b, a) if lhat2 > 0 else (a, b)
-        cand = (leader, follower, float(lhat2), float(sig2), float(cost2))
+        cand = (leader2, follower2, lag2_pos, float(sig2), float(cost2))
 
-    if best is None:
-        return cand
-    if cand is None:
-        return best
+        if best is None:
+            best = cand
+        else:
+            # choose lower sigma, then lower cost
+            if cand[3] < best[3]:
+                best = cand
+            elif cand[3] == best[3] and cand[4] < best[4]:
+                best = cand
 
-    # choose lower sigma, then lower cost
-    if cand[3] < best[3]:
-        return cand
-    if cand[3] > best[3]:
-        return best
-    return cand if cand[4] < best[4] else best
+    return best
+
 
 
 # -------------------------
