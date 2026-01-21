@@ -138,20 +138,12 @@ def load_aligned_returns_for_day(
     Load and align minute returns for a set of tickers on a given trading day.
 
     This version:
-      - normalizes trade_day to a Python date,
-      - avoids Polars DuplicateError by dropping 'timestamp_right',
-      - returns aligned returns per ticker.
+      - avoids Python datetime/date completely,
+      - lets Polars handle the date comparison,
+      - avoids DuplicateError by dropping 'timestamp_right'.
     """
-    # --- normalize trade_day to a Python date ---
-    if hasattr(trade_day, "to_pydatetime"):
-        trade_day_date = trade_day.to_pydatetime().date()
-    elif isinstance(trade_day, datetime):
-        trade_day_date = trade_day.date()
-    elif isinstance(trade_day, date):
-        trade_day_date = trade_day
-    else:
-        # last resort: let Polars convert the literal
-        trade_day_date = trade_day
+    # Represent the target date as a Polars literal cast to Date
+    trade_day_lit = pl.lit(trade_day).cast(pl.Date)
 
     tickers = list(dict.fromkeys(tickers))  # unique, stable order
     df_all: Optional[pl.DataFrame] = None
@@ -163,7 +155,9 @@ def load_aligned_returns_for_day(
 
         df = (
             pl.read_parquet(path)
-            .filter(pl.col(timestamp_col).dt.date() == trade_day_date)
+            # Cast timestamp to Date and compare to trade_day_lit
+            .with_columns(pl.col(timestamp_col).dt.date().alias("_day"))
+            .filter(pl.col("_day") == trade_day_lit)
             .select([timestamp_col, returns_col])
             .rename({returns_col: ticker})
         )
@@ -181,12 +175,17 @@ def load_aligned_returns_for_day(
             df_all = df_all.join(df, on=timestamp_col, how="outer")
 
     if df_all is None or df_all.height == 0:
-        # leave the error raising, but we'll catch it one level up
         raise ValueError(f"No data found for {trade_day} in {returns_dir}")
 
+    # Clean up any leftover timestamp_right and helper columns
     ts_right = f"{timestamp_col}_right"
+    drop_cols = []
     if ts_right in df_all.columns:
-        df_all = df_all.drop(ts_right)
+        drop_cols.append(ts_right)
+    if "_day" in df_all.columns:
+        drop_cols.append("_day")
+    if drop_cols:
+        df_all = df_all.drop(drop_cols)
 
     df_all = df_all.sort(timestamp_col)
     timestamps = df_all[timestamp_col].to_numpy()
@@ -419,10 +418,6 @@ def trade_one_day_from_prev_pairs(
     returns_col: str = "mid_price_return",
     timestamp_col: str = "timestamp",
 ) -> Tuple[float, int, int, int]:
-    """
-    Trade all OCP-selected pairs for a given trading day using pairs from the
-    previous formation day.
-    """
     if prev_pairs.height == 0:
         return 0.0, 0, 0, 0
 
@@ -439,13 +434,10 @@ def trade_one_day_from_prev_pairs(
             timestamp_col=timestamp_col,
         )
     except ValueError:
-        # No data for this day in the returns directory -> skip the day
+        # No data for this day -> skip
         return 0.0, 0, 0, 0
 
     has_index = index_ticker in aligned
-    if not has_index:
-        # Still proceed, but follower will be unhedged (index_ret=None)
-        pass
 
     total_pnl = 0.0
     pairs_used = 0
