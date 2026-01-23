@@ -551,167 +551,151 @@ def run_backtest(
     return pl.DataFrame(rows)
 
 
-output_dir = "../data/results_plots"
-os.makedirs(output_dir, exist_ok=True)
-print(f"Saving plots to: {os.path.abspath(output_dir)}")
-my_params = OCPTradeParams(tc_bps=0.0)
+def show_final_strat_results(results: pl.DataFrame) -> None:
+
+    output_dir = Path("data/results_plots")
+    os.makedirs(output_dir, exist_ok=True)
+
+    df_res = results.to_pandas()
+    df_res['date'] = pd.to_datetime(df_res['trade_day'])
+    df_res.set_index('date', inplace=True)
+
+    # Calculating Equity Curve
+    df_res['cum_pnl'] = df_res['daily_pnl'].cumsum()
+    df_res['high_water_mark'] = df_res['cum_pnl'].cummax()
+    df_res['drawdown'] = df_res['cum_pnl'] - df_res['high_water_mark']
 
 
-pairs_file = Path("../data/top_pairs/daily_top_pairs_573_90.parquet")
-returns_folder = Path("../data/selected/sp100/bbo")
-results = run_backtest(
-    pairs_path=pairs_file,
-    returns_dir=returns_folder,
-    index_ticker="SPY",
-    params=my_params
-)
+    #statistics
+
+    total_return = df_res['cum_pnl'].iloc[-1]
+    daily_mean = df_res['daily_pnl'].mean()
+    daily_std = df_res['daily_pnl'].std()
+    # Annualized Sharpe (252 trading days open in the US market)
+    sharpe_ratio = (daily_mean / daily_std * np.sqrt(252)) if daily_std != 0 else 0
+    max_drawdown = df_res['drawdown'].min()
+    win_rate = len(df_res[df_res['daily_pnl'] > 0]) / len(df_res) * 100
+
+    print("\n" + "="*30)
+    print(" FINAL STRATEGY RESULTS ")
+    print("="*30)
+    print(f"Total Return:      {total_return*100:.2f}%")
+    print(f"Annualized Sharpe: {sharpe_ratio:.2f}")
+    print(f"Max Drawdown:      {max_drawdown*100:.2f}%")
+    print(f"Daily Win Rate:    {win_rate:.2f}%")
+    print(f"Total Trades:      {df_res['entries'].sum()}")
+    print("="*30 + "\n")
 
 
-df_res = results.to_pandas()
-df_res['date'] = pd.to_datetime(df_res['trade_day'])
-df_res.set_index('date', inplace=True)
-
-# Calculating Equity Curve
-df_res['cum_pnl'] = df_res['daily_pnl'].cumsum()
-df_res['high_water_mark'] = df_res['cum_pnl'].cummax()
-df_res['drawdown'] = df_res['cum_pnl'] - df_res['high_water_mark']
-
-
-#statistics
-
-total_return = df_res['cum_pnl'].iloc[-1]
-daily_mean = df_res['daily_pnl'].mean()
-daily_std = df_res['daily_pnl'].std()
-# Annualized Sharpe (252 trading days open in the US market)
-sharpe_ratio = (daily_mean / daily_std * np.sqrt(252)) if daily_std != 0 else 0
-max_drawdown = df_res['drawdown'].min()
-win_rate = len(df_res[df_res['daily_pnl'] > 0]) / len(df_res) * 100
-
-print("\n" + "="*30)
-print(" FINAL STRATEGY RESULTS ")
-print("="*30)
-print(f"Total Return:      {total_return*100:.2f}%")
-print(f"Annualized Sharpe: {sharpe_ratio:.2f}")
-print(f"Max Drawdown:      {max_drawdown*100:.2f}%")
-print(f"Daily Win Rate:    {win_rate:.2f}%")
-print(f"Total Trades:      {df_res['entries'].sum()}")
-print("="*30 + "\n")
+    # Plot 1: Cumulative Returns ---
+    plt.figure(figsize=(10, 6))
+    plt.plot(df_res.index, df_res['cum_pnl'] * 100, label='OCP Strategy', color='#1f77b4', linewidth=2)
+    plt.title('Cumulative PnL Over Time (2015-2017)', fontsize=14)
+    plt.ylabel('Cumulative Return (%)', fontsize=12)
+    plt.xlabel('Date', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.legend()
+    plt.tight_layout()
 
 
-# Plot 1: Cumulative Returns ---
-plt.figure(figsize=(10, 6))
-plt.plot(df_res.index, df_res['cum_pnl'] * 100, label='OCP Strategy', color='#1f77b4', linewidth=2)
-plt.title('Cumulative PnL Over Time (2015-2017)', fontsize=14)
-plt.ylabel('Cumulative Return (%)', fontsize=12)
-plt.xlabel('Date', fontsize=12)
-plt.grid(True, linestyle='--', alpha=0.5)
-plt.legend()
-plt.tight_layout()
+    save_path = f"{output_dir}/cumulative_returns.png"
+    plt.savefig(save_path, dpi=300)
+    plt.show()
+    print(f"Saved: {save_path}")
+    plt.close() # Closing the figure to free memory
 
 
-save_path = f"{output_dir}/cumulative_returns.png"
-plt.savefig(save_path, dpi=300)
-print(f"Saved: {save_path}")
-plt.close() # Closing the figure to free memory
+    # Plot 2: Drawdown
+    plt.figure(figsize=(10, 4))
+    plt.fill_between(df_res.index, df_res['drawdown'] * 100, 0, color='red', alpha=0.3)
+    plt.plot(df_res.index, df_res['drawdown'] * 100, color='red', linewidth=1)
+    plt.title('Strategy Drawdown', fontsize=14)
+    plt.ylabel('Drawdown (%)', fontsize=12)
+    plt.xlabel('Date', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.tight_layout()
+
+    save_path = f"{output_dir}/drawdown.png"
+    plt.savefig(save_path, dpi=300)
+    plt.show()
+    print(f"Saved: {save_path}")
+    plt.close()
 
 
-# Plot 2: Drawdown
-plt.figure(figsize=(10, 4))
-plt.fill_between(df_res.index, df_res['drawdown'] * 100, 0, color='red', alpha=0.3)
-plt.plot(df_res.index, df_res['drawdown'] * 100, color='red', linewidth=1)
-plt.title('Strategy Drawdown', fontsize=14)
-plt.ylabel('Drawdown (%)', fontsize=12)
-plt.xlabel('Date', fontsize=12)
-plt.grid(True, linestyle='--', alpha=0.5)
-plt.tight_layout()
+def show_sensitivity_analysis() -> None:
 
-save_path = f"{output_dir}/drawdown.png"
-plt.savefig(save_path, dpi=300)
-print(f"Saved: {save_path}")
-plt.close()
+    # ==========================================
+    # 1. SETUP
+    # ==========================================
+    pairs_file = Path("data/top_pairs/daily_top_pairs_573_90.parquet")
+    returns_folder = Path("data/selected/sp100/bbo")
+    output_dir = Path("data/results_plots")
+    os.makedirs(output_dir, exist_ok=True)
 
+    # Define the range of thresholds to test (in basis points)
+    # We test from 4 bps (current) up to 20 bps
+    thresholds = [4, 6, 8, 10, 12, 15, 20]
+    net_returns = []
+    trade_counts = []
 
+    print(f"Starting Sensitivity Analysis on {len(thresholds)} thresholds...")
 
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import polars as pl
-import os
-from pathlib import Path
-from trading import run_backtest, OCPTradeParams  # Import your modules
-
-# ==========================================
-# 1. SETUP
-# ==========================================
-pairs_file = Path("../data/top_pairs/daily_top_pairs_573_90.parquet")
-returns_folder = Path("../data/selected/sp100/bbo")
-output_dir = "../data/results_plots"
-os.makedirs(output_dir, exist_ok=True)
-
-# Define the range of thresholds to test (in basis points)
-# We test from 4 bps (current) up to 20 bps
-thresholds = [4, 6, 8, 10, 12, 15, 20]
-net_returns = []
-trade_counts = []
-
-print(f"Starting Sensitivity Analysis on {len(thresholds)} thresholds...")
-
-# ==========================================
-# 2. RUN LOOP
-# ==========================================
-for r in thresholds:
-    print(f"Testing r_bps = {r} ...")
-    
-    # Set up params with REAL transaction costs (4 bps)
-    # We want to see if raising 'r' beats the 'tc'
-    params = OCPTradeParams(
-        tc_bps=0,   # Keep cost fixed at 4 bps
-        r_bps=float(r) # Change the entry threshold
-    )
-    
-    results = run_backtest(
-        pairs_path=pairs_file,
-        returns_dir=returns_folder,
-        index_ticker="SPY",
-        params=params
-    )
-    
-    # Calculate Total Net Return for this run
-    df = results.to_pandas()
-    if len(df) > 0:
-        total_ret = df['daily_pnl'].sum() # Simple sum for speed approx
-        n_trades = df['entries'].sum()
-    else:
-        total_ret = 0.0
-        n_trades = 0
+    # ==========================================
+    # 2. RUN LOOP
+    # ==========================================
+    for r in thresholds:
+        print(f"Testing r_bps = {r} ...")
         
-    net_returns.append(total_ret * 100) # Convert to %
-    trade_counts.append(n_trades)
+        # Set up params with REAL transaction costs (4 bps)
+        # We want to see if raising 'r' beats the 'tc'
+        params = OCPTradeParams(
+            tc_bps=0,   # Keep cost fixed at 4 bps
+            r_bps=float(r) # Change the entry threshold
+        )
+        
+        results = run_backtest(
+            pairs_path=pairs_file,
+            returns_dir=returns_folder,
+            index_ticker="SPY",
+            params=params
+        )
+        
+        # Calculate Total Net Return for this run
+        df = results.to_pandas()
+        if len(df) > 0:
+            total_ret = df['daily_pnl'].sum() # Simple sum for speed approx
+            n_trades = df['entries'].sum()
+        else:
+            total_ret = 0.0
+            n_trades = 0
+            
+        net_returns.append(total_ret * 100) # Convert to %
+        trade_counts.append(n_trades)
 
-# ==========================================
-# 3. PLOT RESULTS
-# ==========================================
-fig, ax1 = plt.subplots(figsize=(10, 6))
+    # ==========================================
+    # 3. PLOT RESULTS
+    # ==========================================
+    fig, ax1 = plt.subplots(figsize=(10, 6))
 
-# Plot Net Return (Blue Line)
-color = 'tab:blue'
-ax1.set_xlabel('Entry Threshold (bps)')
-ax1.set_ylabel('Total Net Return (%)', color=color)
-ax1.plot(thresholds, net_returns, marker='o', color=color, linewidth=2, label='Net PnL')
-ax1.tick_params(axis='y', labelcolor=color)
-ax1.grid(True, linestyle='--', alpha=0.5)
+    # Plot Net Return (Blue Line)
+    color = 'tab:blue'
+    ax1.set_xlabel('Entry Threshold (bps)')
+    ax1.set_ylabel('Total Net Return (%)', color=color)
+    ax1.plot(thresholds, net_returns, marker='o', color=color, linewidth=2, label='Net PnL')
+    ax1.tick_params(axis='y', labelcolor=color)
+    ax1.grid(True, linestyle='--', alpha=0.5)
 
-# Plot Trade Count (Red Bars) - to show why PnL changes
-ax2 = ax1.twinx()  
-color = 'tab:red'
-ax2.set_ylabel('Number of Trades', color=color)
-ax2.bar(thresholds, trade_counts, color=color, alpha=0.3, width=1.0, label='Trade Count')
-ax2.tick_params(axis='y', labelcolor=color)
+    # Plot Trade Count (Red Bars) - to show why PnL changes
+    ax2 = ax1.twinx()  
+    color = 'tab:red'
+    ax2.set_ylabel('Number of Trades', color=color)
+    ax2.bar(thresholds, trade_counts, color=color, alpha=0.3, width=1.0, label='Trade Count')
+    ax2.tick_params(axis='y', labelcolor=color)
 
-plt.title('Sensitivity Analysis: Effect of Entry Threshold on Profitability')
-fig.tight_layout()
+    plt.title('Sensitivity Analysis: Effect of Entry Threshold on Profitability')
+    fig.tight_layout()
 
-save_path = f"{output_dir}/sensitivity_analysis.png"
-plt.savefig(save_path, dpi=300)
-print(f"Sensitivity plot saved to: {save_path}")
-plt.close()
+    save_path = f"{output_dir}/sensitivity_analysis.png"
+    plt.savefig(save_path, dpi=300)
+    print(f"Sensitivity plot saved to: {save_path}")
+    plt.close()
