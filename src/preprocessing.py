@@ -734,6 +734,7 @@ def preprocess_spy() -> pl.DataFrame:
     TEMP_SPY_TIMESTAMP_FOLDER = TEMP_FOLDER / "to_timestamp/"
     TEMP_SPY_PREPROCESSED_FOLDER = TEMP_FOLDER / "preprocessed/"
 
+    PREPROCESSED_FOLDER.mkdir(parents=True, exist_ok=True)
     TEMP_SPY_TIMESTAMP_FOLDER.mkdir(parents=True, exist_ok=True)
     TEMP_SPY_PREPROCESSED_FOLDER.mkdir(parents=True, exist_ok=True)
 

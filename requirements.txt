@@ -1,0 +1,8 @@
+polars
+pandas
+numpy
+numba
+matplotlib
+pandas-market-calendars
+tqdm
+pyarrow
