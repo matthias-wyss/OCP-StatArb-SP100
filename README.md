@@ -9,7 +9,7 @@ This project implements a lead-lag relationship detection system between S&P 100
 
 ### 1. Raw Data Requirements
 The preprocessing pipeline requires raw tick data. 
-- **Download**: Get the raw dataset here: [Download Raw SP100 BBO Data (ZIP)](TODO)
+- **Download**: Get the raw dataset here: [Download Raw SP100 BBO Data (ZIP)](http://gofile.me/648lu/n41PLTHEN)
 - **Setup**: Create a `data/raw/SP100/bbo/` directory.
 - **Action**: Unzip the downloaded file and place the `.tar` files inside this folder.
 
