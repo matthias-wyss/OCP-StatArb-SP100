@@ -6,3 +6,4 @@ matplotlib
 pandas-market-calendars
 tqdm
 pyarrow
+ipywidgets
