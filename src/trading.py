@@ -622,12 +622,11 @@ def show_final_strat_results(results: pl.DataFrame) -> None:
     plt.close()
 
 
-def show_sensitivity_analysis() -> None:
+def show_sensitivity_analysis(pairs_file: Path) -> None:
 
     # ==========================================
     # 1. SETUP
     # ==========================================
-    pairs_file = Path("data/top_pairs/daily_top_pairs_573_90.parquet")
     returns_folder = Path("data/selected/sp100/bbo")
     output_dir = Path("data/results_plots")
     os.makedirs(output_dir, exist_ok=True)
@@ -697,5 +696,6 @@ def show_sensitivity_analysis() -> None:
 
     save_path = f"{output_dir}/sensitivity_analysis.png"
     plt.savefig(save_path, dpi=300)
+    plt.show()
     print(f"Sensitivity plot saved to: {save_path}")
     plt.close()

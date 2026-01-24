@@ -351,16 +351,18 @@ def preprocess_ticker(ticker: str) -> pl.DataFrame:
     return preprocessed
 
 
-def preprocess_all_tickers() -> None:
+def preprocess_all_tickers(tickers: list[str] | None = None) -> None:
     """
     Preprocess all tickers found in RAW_FOLDER.
+    If a list of tickers is provided, only preprocess those tickers.
 
     Skips tickers that already have a preprocessed parquet file in PREPROCESSED_FOLDER.
     Logs progress using tqdm.
     """
     logger.info("Starting preprocessing of all tickers...")
 
-    tickers = get_tickers_list()
+    if tickers is None:
+        tickers = get_tickers_list()
     existing = {f.name for f in PREPROCESSED_FOLDER.glob("*.parquet")}
     to_process = [t for t in tickers if f"{t}.parquet" not in existing]
 
@@ -656,6 +658,12 @@ def process_spy_bbo_day(file_path: Path) -> pl.DataFrame | None:
         pl.col("ask-price").cast(pl.Float64),
         pl.col("bid-volume").cast(pl.Int32),
         pl.col("ask-volume").cast(pl.Int32),
+    )
+
+    # Remove invalid prices
+    df = df.filter(
+        (pl.col("bid-price") > 0) & 
+        (pl.col("ask-price") > 0)
     )
 
     # Timezone handling
