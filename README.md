@@ -7,10 +7,11 @@ This project implements a lead-lag relationship detection system between S&P 100
 
 ## 📂 Data Setup & Directory Structure
 
-### 1. Raw Data
-The preprocessing pipeline requires the raw tick data to be placed in a specific location:
-- Create a `data/raw/SP100/bbo/` directory.
-- Place your downloaded `.tar` files inside this folder.
+### 1. Raw Data Requirements
+The preprocessing pipeline requires raw tick data. 
+- **Download**: Get the raw dataset here: [Download Raw SP100 BBO Data (ZIP)](TODO)
+- **Setup**: Create a `data/raw/SP100/bbo/` directory.
+- **Action**: Unzip the downloaded file and place the `.tar` files inside this folder.
 
 ### 2. Full Project Hierarchy
 The following structure **must exist** in the project root for the scripts to execute correctly. Even if folders like `selected` or `top_pairs` are initially empty, the pipeline expects them to be present:
