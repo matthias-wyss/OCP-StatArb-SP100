@@ -45,16 +45,15 @@ OCP-StatArb-SP100/
 ```
 
 ## 🚀 Getting Started
-1. Installation
+
+### 1. Installation
 Install the required dependencies (ensure you are in your virtual environment): `pip install -r requirements.txt`
 
-2. Running the Analysis
+### 2. Running the Analysis
 The entire workflow is managed via the main Jupyter notebook: ```analysis.ipynb```
 
-3. Execution Modes
+### 3. Execution Modes
 In the first cells of the notebook, you can set these flags:
-
-`PARTIAL_RUN = True`: Processes a subset of tickers/days for fast testing.
-
-`PERFORM_PREPROCESSING = True`: Clears internal folders and re-runs the full preprocessing pipeline from raw data.
+- `PARTIAL_RUN = True`: Processes a subset of tickers/days for fast testing.
+- `PERFORM_PREPROCESSING = True`: Clears internal folders and re-runs the full preprocessing pipeline from raw data.
 
